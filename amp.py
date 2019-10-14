@@ -5,6 +5,7 @@ def handle_events():
     global dir
     global frameX
     global frameY
+
     events = get_events()
 
     for event in events:
@@ -13,23 +14,32 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_RIGHT:
                 dir += 1
+                frameX = 0
+                frameY = 4
             elif event.key == SDLK_LEFT:
                 dir -= 1
-            elif event.key== SDLK_a:
+                frameX = 0
+                frameY = 4
+            elif event.key == SDLK_a:
                 frameY = 0
             elif event.key == SDLK_ESCAPE:
                 running = False
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_RIGHT:
                  dir -= 1
+                 frameX = 2
+                 frameY = 3
             elif event.key == SDLK_LEFT:
                  dir += 1
-
+                 frameX = 2
+                 frameY = 3
 
 open_canvas(512,1024)
 
 grass = load_image('20180417022947-1-576x1024.jpg')
 character = load_image('Mobile - Cookie Run - Roll Cake Cookie.png')
+
+enemy1 = load_image()
 
 x = 0
 dir = 0
@@ -46,14 +56,12 @@ while running:
         handle_events()
 
         if(frameY == 4):
-            frameX = (frameX + 1) % 8
+            frameX = (frameX + 1) % 4
         elif (frameY == 0):
             frameX = (frameX + 1) % 19
             if( frameX == 0):
                 frameY = 4
-
-        x += dir * 5
+        x += dir * 10
         delay(0.03)
-
 
     close_canvas()
