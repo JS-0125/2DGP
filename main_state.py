@@ -14,6 +14,7 @@ character = None
 grass = None
 enemy1 = None
 
+
 class Grass:
     def __init__(self):
         self.image = load_image('20180417022947-1-576x1024.jpg')
