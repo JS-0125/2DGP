@@ -2,7 +2,6 @@ import random
 import json
 import os
 
-
 from pico2d import *
 
 import game_framework
@@ -13,7 +12,6 @@ name = "MainState"
 character = None
 grass = None
 enemy1 = None
-
 
 class Grass:
     def __init__(self):
@@ -26,7 +24,7 @@ class Chatacter:
     def __init__(self):
         self.x, self.y = 0, 0
         self.frameX, self.frameY = 0, 4
-        self.image = load_image('Mobile - Cookie Run - Roll Cake Cookie.png')
+        self.image = load_image('character.png')
         self.dir = 0
 
     def update(self):
@@ -38,10 +36,13 @@ class Chatacter:
                 self.frameY = 3
                 self.frameX = 2
 
-        self.x += self.dir * 15
+        self.x += self.dir * 10
 
     def draw(self):
-        self.image.clip_draw(self.frameX * 360, self.frameY * 360, 360, 360, self.x, 500)
+        if (self.frameY==4):
+            self.image.clip_draw(self.frameX * 360, self.frameY * 360, 360, 360, self.x, 500,200,200)
+        else:
+            self.image.clip_draw(self.frameX * 365, self.frameY * 360, 360, 360, self.x, 500,200,200)
 
 
 class Enemy:
@@ -51,15 +52,16 @@ class Enemy:
         self.image = load_image('monster1.png')
 
     def update(self):
-        if (self.monsterX == 200):
-            self.monsterDelX -= 10
-        elif (self.monsterX == 100):
-            self.monsterDelX += 10
+        if (self.monsterX >= 200):
+            self.monsterDelX = -2
+        elif (self.monsterX <= 100):
+            self.monsterDelX = 2
         self.monsterFrameX = (self.monsterFrameX + 1) % 28
         self.monsterX += self.monsterDelX
 
     def draw(self):
-        self.image.clip_draw(self.monsterFrameX * 201 , 0 , 240 , 230, self.monsterX, 300 )
+        self.image.clip_draw(self.monsterFrameX * 201 , 0 , 240 , 230, self.monsterX, 300, 100, 100)
+
 
 
 def enter():
@@ -125,7 +127,7 @@ def draw():
     character.draw()
     enemy1.draw()
     update_canvas()
-    delay(0.03)
+    delay(0.02)
 
 
 

@@ -27,7 +27,7 @@ def update():
 def draw():
     global image
     clear_canvas()
-    image.draw(500, 1024)
+    image.draw(280, 512)
     update_canvas()
 
 def handle_events():
