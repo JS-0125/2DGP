@@ -1,18 +1,13 @@
-import random
-import json
-import os
-
 from pico2d import *
 
 import game_world
 import game_framework
+import shop_state
 
 from character import Chatacter
 from grass import Grass
 from Tile_1 import Tile
 from Tile_2 import Tile_2
-
-import title_state
 
 name = "MainState"
 
@@ -22,23 +17,6 @@ enemy1 = None
 tile1 = None
 tile1 = None
 
-class Enemy:
-    def __init__(self):
-        self. monsterDelX, self.monsterX = 0, 100
-        self.monsterFrameX = 0
-        self.image = load_image('monster1.png')
-
-    def update(self):
-        if (self.monsterX >= 200):
-            self.monsterDelX = -2
-        elif (self.monsterX <= 100):
-            self.monsterDelX = 2
-        self.monsterFrameX = (self.monsterFrameX + 1) % 28
-        self.monsterX += self.monsterDelX
-
-    def draw(self):
-        self.image.clip_draw(self.monsterFrameX * 201 , 0 , 240 , 230, self.monsterX, 300, 100, 100)
-
 def enter():
     global character, grass, enemy1, tile1, tile2
     xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
@@ -46,7 +24,7 @@ def enter():
 
     character = Chatacter()
     grass = Grass()
-    enemy1 = Enemy()
+    #enemy1 = Enemy()
     game_world.add_object(grass, 0)
     game_world.add_object(character, 1)
 
@@ -67,7 +45,6 @@ def enter():
 
 def exit():
     game_world.clear()
-
 
 def pause():
     pass
@@ -94,12 +71,15 @@ def update():
             character.stop()
             break
         else:
-            character.dirY = -5
+            character.dirY = -8
 
     for tile in tile2:
         if collide(tile, character):
             character.stop()
 
+    if character.y <= 100:
+        delay(1)
+        game_framework.change_state(shop_state)
 
 
 def draw():

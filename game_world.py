@@ -1,7 +1,7 @@
 
 # layer 0: Background Objects
 # layer 1: Foreground Objects
-objects = [[],[],[]]
+objects = [[],[], []]
 
 
 def add_object(o, layer):
@@ -11,6 +11,7 @@ def add_object(o, layer):
 def add_objects(l, layer):
     for o in l:
         add_object(o, layer)
+
 
 def remove_object(o):
     for i in range(len(objects)):
