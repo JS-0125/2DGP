@@ -72,7 +72,9 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-
+    if collide(character, tile1):
+        #tile1.remove()
+        game_world.remove_object(tile1)
 
 def draw():
     clear_canvas()
@@ -81,7 +83,16 @@ def draw():
     update_canvas()
     delay(0.02)
 
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
 
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
 
 
 

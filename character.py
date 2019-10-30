@@ -59,7 +59,7 @@ class IdleState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 360, 3 * 360, 360, 360, character.x, 500, 200, 200)
+        character.image.clip_draw(character.frameX * 360, 3 * 360, 360, 360, character.x, character.y, 200, 200)
 
 class RunState:
     @staticmethod
@@ -89,8 +89,7 @@ class RunState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 360, character.frameY * 360, 360, 360, character.x, 500, 200, 200)
-
+        character.image.clip_draw(character.frameX * 360, character.frameY * 360, 360, 360, character.x, character.y, 200, 200)
 
 class AttackState:
     @staticmethod
@@ -130,7 +129,7 @@ class AttackState:
                 character.frameX = 2
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 365, character.frameY * 360, 360, 360, character.x, 500, 200, 200)
+        character.image.clip_draw(character.frameX * 365, character.frameY * 360, 360, 360, character.x, character.y, 200, 200)
 
 next_state_table = {
     IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, A_DOWN: AttackState},
@@ -140,7 +139,7 @@ next_state_table = {
 
 class Chatacter:
     def __init__(self):
-        self.x, self.y = 0, 0
+        self.x, self.y = 0, 200
         self.frameX, self.frameY = 2, 3
         self.image = load_image('character.png')
         self.dir = 0
@@ -150,6 +149,9 @@ class Chatacter:
 
     def add_event(self, event):
         self.event_que.insert(0, event)
+
+    def get_bb(self):
+        return self.x - 70, self.y - 95, self.x + 30, self.y + 25
 
     def update(self):
         self.cur_state.do(self)
@@ -161,6 +163,7 @@ class Chatacter:
 
     def draw(self):
         self.cur_state.draw(self)
+        draw_rectangle(*self.get_bb())
         # fill here
 
     def handle_event(self, event):
@@ -168,5 +171,3 @@ class Chatacter:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
 
-    def get_bb(self):
-        return self.x - 100, self.y - 100, self.x + 100, self.y + 100
