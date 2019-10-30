@@ -4,11 +4,14 @@ import os
 
 from pico2d import *
 
-from character import Chatacter
-from grass import Grass
-
 import game_world
 import game_framework
+
+from character import Chatacter
+from grass import Grass
+from Tile_1 import Tile
+
+
 import title_state
 
 name = "MainState"
@@ -16,6 +19,7 @@ name = "MainState"
 character = None
 grass = None
 enemy1 = None
+tile1 = None
 
 class Enemy:
     def __init__(self):
@@ -35,19 +39,18 @@ class Enemy:
         self.image.clip_draw(self.monsterFrameX * 201 , 0 , 240 , 230, self.monsterX, 300, 100, 100)
 
 def enter():
-    global character, grass, enemy1
+    global character, grass, enemy1, tile1
     character = Chatacter()
     grass = Grass()
     enemy1 = Enemy()
+    tile1 = Tile()
     game_world.add_object(grass, 0)
     game_world.add_object(character, 1)
+    game_world.add_object(tile1, 2)
 
 
 def exit():
-    global character, grass, enemy1
-    del(character)
-    del(grass)
-    del(enemy1)
+    game_world.clear()
 
 
 def pause():

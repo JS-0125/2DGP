@@ -18,7 +18,6 @@ TIME_PER_ACTION = 0
 ACTION_PER_TIME = 0
 FRAMES_PER_ACTION = 0
 
-
 # Boy Event
 RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, A_DOWN, ESCAPE = range(6)
 
@@ -34,15 +33,7 @@ key_event_table = {
 class IdleState:
     @staticmethod
     def enter(character, event):
-        if(event == RIGHT_DOWN):
-            character.dir += 1
-            character.frameX = 0
-            character.frameY = 4
-        elif(event == LEFT_DOWN):
-            character.dir -= 1
-            character.frameX = 0
-            character.frameY = 6
-        elif(event == RIGHT_UP):
+        if(event == RIGHT_UP):
             character.dir -= 1
             character.frameX = 2
             character.frameY = 3
@@ -50,12 +41,6 @@ class IdleState:
             character.dir += 1
             character.frameX = 2
             character.frameY = 3
-        elif(event == A_DOWN):
-            if (character.dir == 1):
-                character.frameY = 0
-            elif (character.dir == -1):
-                character.frameY = 7
-                character.frameX = 19
         elif event == ESCAPE:
             game_framework.change_state(title_state)
 
@@ -87,22 +72,6 @@ class RunState:
             character.dir -= 1
             character.frameX = 0
             character.frameY = 6
-        elif (event == RIGHT_UP):
-            character.dir -= 1
-            character.frameX = 2
-            character.frameY = 3
-        elif (event == LEFT_UP):
-            character.dir += 1
-            character.frameX = 2
-            character.frameY = 3
-        elif (event == A_DOWN):
-            if (character.dir == 1):
-                character.frameY = 0
-            elif (character.dir == -1):
-                character.frameY = 7
-                character.frameX = 19
-        elif event.key == SDLK_ESCAPE:
-            game_framework.change_state(title_state)
 
     @staticmethod
     def exit(character, event):
@@ -134,16 +103,7 @@ class AttackState:
             character.dir -= 1
             character.frameX = 0
             character.frameY = 6
-        elif (event == RIGHT_UP):
-            character.dir -= 1
-            character.frameX = 2
-            character.frameY = 3
-        elif (event == LEFT_UP):
-            character.dir += 1
-            character.frameX = 2
-            character.frameY = 3
         elif (event == A_DOWN):
-
             if (character.dir == -1):
                 character.frameY = 7
                 character.frameX = 19

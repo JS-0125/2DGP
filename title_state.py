@@ -34,7 +34,7 @@ def handle_events():
 def draw():
     clear_canvas()
     image_title.draw(280, 300)
-    image_text.draw(280,300)
+    image_text.draw(280,250)
     update_canvas()
 
 def update():
