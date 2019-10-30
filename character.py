@@ -1,7 +1,7 @@
 import game_framework
 from pico2d import *
 import title_state
-
+import main_state
 import game_world
 
 # Boy Run Speed
@@ -57,6 +57,7 @@ class IdleState:
         elif (character.frameY == 6):
             character.frameX = (character.frameX - 1) % 4
             character.x += character.dir * 10
+        character.x = clamp(120, character.x, 450)
 
     @staticmethod
     def draw(character):
@@ -87,7 +88,7 @@ class RunState:
         elif (character.frameY == 6):
             character.frameX = (character.frameX - 1) % 4
             character.x += character.dir * 10
-
+        character.x = clamp(120, character.x, 450)
 
     @staticmethod
     def draw(character):
@@ -122,6 +123,10 @@ class AttackState:
         if (character.frameY == 0):
             character.frameX = (character.frameX + 1) % 19
             if (character.frameX == 0):
+                for tile in main_state.tile2:
+                    if main_state.collide(tile, character):
+                        main_state.tile2.remove(tile)
+                        game_world.remove_object(tile)
                 character.frameY = 3
                 character.frameX = 2
         elif (character.frameY == 7):
@@ -153,7 +158,7 @@ class Chatacter:
         self.event_que.insert(0, event)
 
     def get_bb(self):
-        return self.x - 70, self.y - 95, self.x + 30, self.y + 25
+        return self.x - 50, self.y - 100, self.x + 30, self.y - 10
 
     def update(self):
         self.cur_state.do(self)
