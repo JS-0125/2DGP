@@ -42,7 +42,7 @@ class Enemy:
 def enter():
     global character, grass, enemy1, tile1, tile2
     xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
-    ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 200, 1500 ,900, 500, 200, 1200, 900, 500, 200]
+    ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 1000, 1500 ,900, 500, 200, 1200, 900, 500, 200]
 
     character = Chatacter()
     grass = Grass()
@@ -56,8 +56,8 @@ def enter():
         tile1[i].y = ypos[i]
     game_world.add_objects(tile1, 1)
 
-    xpos = [139.5, 139.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    ypos = [200, 500,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
+    xpos = [139.5, 139.5, 139.5,234.5,0,0,0,0,0,0,0,0,0,0,0,0]
+    ypos = [200, 500,400,200,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
     tile2 = [Tile_2() for i in range(16)]
     for i in range(16):
         tile2[i].x = xpos[i]
@@ -107,7 +107,7 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-    delay(0.02)
+    delay(0.01)
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()

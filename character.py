@@ -80,14 +80,17 @@ class RunState:
 
     @staticmethod
     def do(character):
-        character.y += character.dirY
-        if (character.frameY == 4):
-            character.frameX = (character.frameX + 1) % 4
-            character.x += character.dir * 10
-        elif (character.frameY == 6):
-            character.frameX = (character.frameX - 1) % 4
-            character.x += character.dir * 10
-        character.x = clamp(120, character.x, 450)
+        if(character.dirY == 0):
+            if (character.frameY == 4):
+                character.frameX = (character.frameX + 1) % 4
+                character.x += character.dir * 10
+            elif (character.frameY == 6):
+                character.frameX = (character.frameX - 1) % 4
+                character.x += character.dir * 10
+            character.x = clamp(120, character.x, 450)
+        else:
+            character.y += character.dirY
+
 
     @staticmethod
     def draw(character):
@@ -119,20 +122,26 @@ class AttackState:
 
     @staticmethod
     def do(character):
-        if (character.frameY == 0):
-            character.frameX = (character.frameX + 1) % 19
-            if (character.frameX == 0):
-                for tile in main_state.tile2:
-                    if main_state.collide(tile, character):
-                        main_state.tile2.remove(tile)
-                        game_world.remove_object(tile)
-                character.frameY = 3
-                character.frameX = 2
-        elif (character.frameY == 7):
-            character.frameX = (character.frameX - 1) % 19
-            if (character.frameX == 0):
-                character.frameY = 3
-                character.frameX = 2
+        if(character.dirY==0):
+            if (character.frameY == 0):
+                character.frameX = (character.frameX + 1) % 19
+                if (character.frameX == 0):
+                    character.frameY = 3
+                    character.frameX = 2
+                    for tile in main_state.tile2:
+                        if main_state.collide(tile, character):
+                            main_state.tile2.remove(tile)
+                            game_world.remove_object(tile)
+            elif (character.frameY == 7):
+                character.frameX = (character.frameX - 1) % 19
+                if (character.frameX == 0):
+                    character.frameY = 3
+                    character.frameX = 2
+                    for tile in main_state.tile2:
+                        if main_state.collide(tile, character):
+                            main_state.tile2.remove(tile)
+                            game_world.remove_object(tile)
+
     @staticmethod
     def draw(character):
         character.image.clip_draw(character.frameX * 365, character.frameY * 360, 360, 360, character.x, character.y, 200, 200)
