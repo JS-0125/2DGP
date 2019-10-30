@@ -3,32 +3,35 @@ from pico2d import *
 import game_world
 import game_framework
 import shop_state
+import game_over_state
 
 from character import Chatacter
 from grass import Grass
 from Tile_1 import Tile
 from Tile_2 import Tile_2
+from monster1 import Enemy
 
 name = "MainState"
 
 character = None
 grass = None
-enemy1 = None
+monster1 = None
 tile1 = None
-tile1 = None
+tile2 = None
 
 def enter():
-    global character, grass, enemy1, tile1, tile2
-    xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
-    ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 1000, 1500 ,900, 500, 200, 1200, 900, 500, 200]
-
+    global character, grass, monster1, tile1, tile2
     character = Chatacter()
     grass = Grass()
-    #enemy1 = Enemy()
-    game_world.add_object(grass, 0)
-    game_world.add_object(character, 1)
+    monster1 = Enemy()
 
-    tile1 = [Tile() for i in range(16)]
+    game_world.add_object(character, 1)
+    game_world.add_object(monster1, 1)
+    game_world.add_object(grass, 0)
+
+    xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
+    ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 1000, 1500, 900, 500, 200, 1200, 900, 500, 200]
+    tile1 = [Tile() for i in range(0,16)]
     for i in range(16):
         tile1[i].x = xpos[i]
         tile1[i].y = ypos[i]
@@ -36,11 +39,11 @@ def enter():
 
     xpos = [139.5, 139.5, 139.5,234.5,0,0,0,0,0,0,0,0,0,0,0,0]
     ypos = [200, 500,400,200,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
-    tile2 = [Tile_2() for i in range(16)]
+    tile2 = [Tile_2() for i in range(0,16)]
     for i in range(16):
         tile2[i].x = xpos[i]
         tile2[i].y = ypos[i]
-    game_world.add_objects(tile2, 2)
+    game_world.add_objects(tile2, 1)
 
 
 def exit():
@@ -81,13 +84,16 @@ def update():
         delay(1)
         game_framework.change_state(shop_state)
 
+    if collide(monster1, character):
+        game_framework.change_state(game_over_state)
+
 
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-    delay(0.01)
+    delay(0.02)
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()

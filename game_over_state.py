@@ -3,17 +3,19 @@ from pico2d import *
 import game_world
 import title_state
 
-name = "ShopState"
-shop = None
+name = "GameOverState"
+gameover = None
 
 def enter():
-    global shop
-    shop = load_image('shop.png')
+    global gameover
+    gameover = load_image('game_over.png')
 
 def exit():
-    global shop
-    del(shop)
+    global gameover
+    del(gameover)
     game_world.clear()
+
+
 
 
 def handle_events():
@@ -29,7 +31,7 @@ def handle_events():
 
 def draw():
     clear_canvas()
-    shop.draw(280, 450)
+    gameover.draw(280, 450)
 
     update_canvas()
 

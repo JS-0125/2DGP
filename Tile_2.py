@@ -10,7 +10,6 @@ class Tile_2:
 
     def draw(self):
         self.image.draw(self.x, self.y, 95, 95)
-        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 42.5, self.y - 42.5, self.x + 42.5, self.y + 42.5
