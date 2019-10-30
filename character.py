@@ -47,7 +47,6 @@ class IdleState:
     @staticmethod
     def exit(character, event):
         pass
-
     @staticmethod
     def do(character):
         character.y += character.dirY
