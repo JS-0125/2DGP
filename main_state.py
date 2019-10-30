@@ -11,7 +11,6 @@ from character import Chatacter
 from grass import Grass
 from Tile_1 import Tile
 
-
 import title_state
 
 name = "MainState"
@@ -40,13 +39,21 @@ class Enemy:
 
 def enter():
     global character, grass, enemy1, tile1
+    xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
+    ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 200, 1500 ,900, 500, 200, 1200, 900, 500, 200]
+
     character = Chatacter()
     grass = Grass()
     enemy1 = Enemy()
-    tile1 = Tile()
     game_world.add_object(grass, 0)
     game_world.add_object(character, 1)
-    game_world.add_object(tile1, 2)
+
+    tile1 = [Tile() for i in range(16)]
+    for i in range(16):
+        tile1[i].x = xpos[i]
+        tile1[i].y = ypos[i]
+    game_world.add_objects(tile1, 1)
+
 
 
 def exit():
@@ -72,9 +79,12 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    if collide(character, tile1):
-        #tile1.remove()
-        game_world.remove_object(tile1)
+    for tile in tile1:
+        if collide(tile, character):
+            character.stop()
+            break
+        else:
+            character.dirY = -5
 
 def draw():
     clear_canvas()

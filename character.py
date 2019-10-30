@@ -50,6 +50,7 @@ class IdleState:
 
     @staticmethod
     def do(character):
+        character.y += character.dirY
         if (character.frameY == 4):
             character.frameX = (character.frameX + 1) % 4
             character.x += character.dir * 10
@@ -79,6 +80,7 @@ class RunState:
 
     @staticmethod
     def do(character):
+        character.y += character.dirY
         if (character.frameY == 4):
             character.frameX = (character.frameX + 1) % 4
             character.x += character.dir * 10
@@ -139,10 +141,10 @@ next_state_table = {
 
 class Chatacter:
     def __init__(self):
-        self.x, self.y = 0, 200
+        self.x, self.y = 120, 800
         self.frameX, self.frameY = 2, 3
         self.image = load_image('character.png')
-        self.dir = 0
+        self.dir, self.dirY = 0, -5
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
@@ -171,3 +173,5 @@ class Chatacter:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
 
+    def stop(self):
+        self.dirY = 0

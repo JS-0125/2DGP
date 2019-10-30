@@ -9,15 +9,14 @@ class Tile:
     def __init__(self):
         if Tile.image == None:
             Tile.image = load_image('tile_2.png')
-        self.x, self.y = 300, 100
+        self.x, self.y = 0,0
 
     def draw(self):
-        self.image.draw(self.x, self.y,100,100)
+        self.image.draw(self.x, self.y, 95, 95)
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+        return self.x - 42.5, self.y - 42.5, self.x + 42.5, self.y + 42.5
 
     def update(self):
-        if self.x < 25 or self.x > 1600 - 25:
-            game_world.remove_object(self)
+        pass
