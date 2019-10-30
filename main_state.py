@@ -30,20 +30,26 @@ class Chatacter:
     def update(self):
         if (self.frameY == 4):
             self.frameX = (self.frameX + 1) % 4
+            self.x += self.dir * 10
+        elif(self.frameY == 6):
+            self.frameX = (self.frameX - 1) % 4
+            self.x += self.dir * 10
         elif (self.frameY == 0):
             self.frameX = (self.frameX + 1) % 19
             if (self.frameX == 0):
                 self.frameY = 3
                 self.frameX = 2
-
-        self.x += self.dir * 10
+        elif(self.frameY == 7):
+            self.frameX = (self.frameX - 1) % 19
+            if (self.frameX == 0):
+                self.frameY = 3
+                self.frameX = 2
 
     def draw(self):
-        if (self.frameY==4):
+        if (self.frameY == 4 or self.frameY == 6 or self.frameY ==3):
             self.image.clip_draw(self.frameX * 360, self.frameY * 360, 360, 360, self.x, 500,200,200)
-        else:
+        elif (self.frameY == 0 or self.frameY == 7):
             self.image.clip_draw(self.frameX * 365, self.frameY * 360, 360, 360, self.x, 500,200,200)
-
 
 class Enemy:
     def __init__(self):
@@ -62,8 +68,6 @@ class Enemy:
     def draw(self):
         self.image.clip_draw(self.monsterFrameX * 201 , 0 , 240 , 230, self.monsterX, 300, 100, 100)
 
-
-
 def enter():
     global character, grass, enemy1
     character = Chatacter()
@@ -81,10 +85,8 @@ def exit():
 def pause():
     pass
 
-
 def resume():
     pass
-
 
 def handle_events():
     events = get_events()
@@ -100,9 +102,13 @@ def handle_events():
             elif event.key == SDLK_LEFT:
                 character.dir -= 1
                 character.frameX = 0
-                character.frameY = 4
+                character.frameY = 6
             elif event.key == SDLK_a:
-                character.frameY = 0
+                if(character.dir == 1):
+                    character.frameY = 0
+                elif(character.dir == -1):
+                    character.frameY = 7
+                    character.frameX = 19
             elif event.key == SDLK_ESCAPE:
                 game_framework.change_state(title_state)
         elif event.type == SDL_KEYUP:
@@ -114,7 +120,6 @@ def handle_events():
                 character.dir += 1
                 character.frameX = 2
                 character.frameY = 3
-
 
 def update():
     character.update()
