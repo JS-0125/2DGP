@@ -60,7 +60,7 @@ class IdleState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 360, 3 * 360, 360, 360, character.x, character.y, 200, 200)
+        character.image.clip_draw(character.frameX * 360, 3 * 360, 360, 360, character.x, character.y, 160, 160)
 
 class RunState:
     @staticmethod
@@ -94,7 +94,7 @@ class RunState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 360, character.frameY * 360, 360, 360, character.x, character.y, 200, 200)
+        character.image.clip_draw(character.frameX * 360, character.frameY * 360, 360, 360, character.x, character.y, 160, 160)
 
 class AttackState:
     @staticmethod
@@ -141,10 +141,12 @@ class AttackState:
                         if main_state.collide(tile, character):
                             main_state.tile2.remove(tile)
                             game_world.remove_object(tile)
+        else:
+            character.y += character.dirY
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 365, character.frameY * 360, 360, 360, character.x, character.y, 200, 200)
+        character.image.clip_draw(character.frameX * 365, character.frameY * 360, 360, 360, character.x, character.y, 160, 160)
 
 next_state_table = {
     IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, A_DOWN: AttackState},
@@ -156,7 +158,7 @@ class Chatacter:
     def __init__(self):
         self.x, self.y = 120, 800
         self.frameX, self.frameY = 2, 3
-        self.image = load_image('character.png')
+        self.image = load_image('resourse/character.png')
         self.dir, self.dirY = 0, -5
         self.event_que = []
         self.cur_state = IdleState
@@ -166,7 +168,7 @@ class Chatacter:
         self.event_que.insert(0, event)
 
     def get_bb(self):
-        return self.x - 50, self.y - 100, self.x + 30, self.y - 10
+        return self.x - 50, self.y - 80, self.x + 15, self.y - 20
 
     def update(self):
         self.cur_state.do(self)
@@ -178,7 +180,6 @@ class Chatacter:
 
     def draw(self):
         self.cur_state.draw(self)
-        # fill here
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

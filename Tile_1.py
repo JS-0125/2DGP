@@ -8,7 +8,7 @@ class Tile:
 
     def __init__(self):
         if Tile.image == None:
-            Tile.image = load_image('tile_2.png')
+            Tile.image = load_image('resourse/tile_2.png')
         self.x, self.y = 0,0
 
     def draw(self):

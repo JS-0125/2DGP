@@ -4,7 +4,7 @@ class Enemy:
     def __init__(self):
         self. monsterDelX, self.x = 0, 100
         self.monsterFrameX = 0
-        self.image = load_image('monster1.png')
+        self.image = load_image('resourse/monster1.png')
 
     def update(self):
         if (self.x >= 400):

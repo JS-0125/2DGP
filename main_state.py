@@ -45,15 +45,8 @@ def enter():
         tile2[i].y = ypos[i]
     game_world.add_objects(tile2, 1)
 
-
 def exit():
     game_world.clear()
-
-def pause():
-    pass
-
-def resume():
-    pass
 
 def handle_events():
     events = get_events()
@@ -65,13 +58,17 @@ def handle_events():
         else:
             character.handle_event(event)
 
+
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
     for tile in tile1:
         if collide(tile, character):
-            character.stop()
+            if tile.y - 42.5 < character.y - 80:
+                character.stop()
+            else:
+                character.x = tile.x - 50
             break
         else:
             character.dirY = -8
@@ -79,6 +76,8 @@ def update():
     for tile in tile2:
         if collide(tile, character):
             character.stop()
+            break
+
 
     if character.y <= 100:
         delay(1)
@@ -104,6 +103,3 @@ def collide(a, b):
     if bottom_a > top_b: return False
 
     return True
-
-
-

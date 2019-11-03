@@ -9,8 +9,8 @@ image_text = None
 
 def enter():
     global image_title, image_text
-    image_title = load_image('title.png')
-    image_text = load_image('press_space_text.png')
+    image_title = load_image('resourse/title.png')
+    image_text = load_image('resourse/press_space_text.png')
 
 
 def exit():

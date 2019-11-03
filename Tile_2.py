@@ -5,7 +5,7 @@ class Tile_2:
 
     def __init__(self):
         if Tile_2.image == None:
-            Tile_2.image = load_image('tile_1.png')
+            Tile_2.image = load_image('resourse/tile_1.png')
         self.x, self.y = 0, 0
 
     def draw(self):

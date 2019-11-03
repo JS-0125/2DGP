@@ -8,12 +8,11 @@ shop = None
 
 def enter():
     global shop
-    shop = load_image('shop.png')
+    shop = load_image('resourse/shop.png')
 
 def exit():
     global shop
     del(shop)
-    game_world.clear()
 
 
 def handle_events():
