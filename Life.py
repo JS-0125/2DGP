@@ -6,7 +6,8 @@ class Life:
         self.count = 3
 
     def update(self):
-        pass
+        for i in range(self.count):
+            self.image.draw(210 + i * 70, 750, 50, 50)
 
     def draw(self):
         for i in range(self.count):

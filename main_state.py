@@ -89,7 +89,9 @@ def update():
         game_framework.change_state(shop_state)
 
     if collide(monster1, character):
-        game_framework.change_state(game_over_state)
+        life.count -= 1
+        if life.count == 0:
+            game_framework.change_state(game_over_state)
 
 
 def draw():
