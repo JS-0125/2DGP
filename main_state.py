@@ -19,6 +19,7 @@ monster1 = None
 tile1 = None
 tile2 = None
 
+
 def enter():
     global character, grass, monster1, tile1, tile2
     character = Chatacter()
@@ -45,8 +46,10 @@ def enter():
         tile2[i].y = ypos[i]
     game_world.add_objects(tile2, 1)
 
+
 def exit():
     game_world.clear()
+
 
 def handle_events():
     events = get_events()
@@ -57,6 +60,7 @@ def handle_events():
             game_framework.quit()
         else:
             character.handle_event(event)
+
 
 def update():
     for game_object in game_world.all_objects():
@@ -77,13 +81,13 @@ def update():
             character.stop()
             break
 
-
     if character.y <= 100:
         delay(1)
         game_framework.change_state(shop_state)
 
     if collide(monster1, character):
         game_framework.change_state(game_over_state)
+
 
 def draw():
     clear_canvas()
