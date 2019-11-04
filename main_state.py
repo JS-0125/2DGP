@@ -36,6 +36,7 @@ def enter():
     xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
     ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 1000, 1500, 900, 500, 200, 1200, 900, 500, 200]
     tile1 = [Tile() for i in range(0,16)]
+
     for i in range(16):
         tile1[i].x = xpos[i]
         tile1[i].y = ypos[i]
@@ -43,6 +44,7 @@ def enter():
 
     xpos = [139.5, 139.5, 139.5,234.5,0,0,0,0,0,0,0,0,0,0,0,0]
     ypos = [200, 500,400,200,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
+
     tile2 = [Tile_2() for i in range(0,16)]
     for i in range(16):
         tile2[i].x = xpos[i]
@@ -69,20 +71,7 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    for tile in tile1:
-        if collide(tile, character):
-            if tile.y - 42.5 < character.y - 80:
-                character.stop()
-            else:
-                character.x = tile.x - 50
-            break
-        else:
-            character.dirY = -8
-
-    for tile in tile2:
-        if collide(tile, character):
-            character.stop()
-            break
+    TileCollide()
 
     if character.y <= 100:
         delay(1)
@@ -93,12 +82,33 @@ def update():
         if life.count == 0:
             game_framework.change_state(game_over_state)
 
+
+
+def TileCollide():
+    for tile in tile1:
+        if collide(tile, character):
+            if tile.y - 42.5 < character.y - 80:
+                character.stop()
+            else:
+                character.x = tile.x - 50
+            break
+        else:
+            character.dirY = -8
+    for tile in tile2:
+        if collide(tile, character):
+            character.stop()
+            break
+
+
+
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
     delay(0.02)
+
+
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
