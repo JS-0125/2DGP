@@ -89,6 +89,9 @@ def update():
         if life.count == 0:
             game_framework.change_state(game_over_state)
 
+    if collide(crystal, character):
+        game_world.remove_object(crystal)
+
 
 def TileCollide():
     for tile in tile1:
