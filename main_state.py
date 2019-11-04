@@ -11,6 +11,7 @@ from Tile_1 import Tile
 from Tile_2 import Tile_2
 from monster1 import Enemy
 from Life import Life
+from crystal import Crystal
 
 name = "MainState"
 
@@ -20,18 +21,21 @@ monster1 = None
 tile1 = None
 tile2 = None
 life = None
+crystal = None
 
 def enter():
-    global character, grass, monster1, tile1, tile2, life
+    global character, grass, monster1, tile1, tile2, life, crystal
     character = Chatacter()
     grass = Grass()
     monster1 = Enemy()
     life= Life()
+    crystal = Crystal()
 
     game_world.add_object(character, 1)
     game_world.add_object(monster1, 1)
     game_world.add_object(grass, 0)
-    game_world.add_object(life,1)
+    game_world.add_object(life, 1)
+    game_world.add_object(crystal, 1)
 
     xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
     ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 1000, 1500, 900, 500, 200, 1200, 900, 500, 200]
