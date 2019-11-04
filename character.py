@@ -188,3 +188,8 @@ class Chatacter:
 
     def stop(self):
         self.dirY = 0
+
+    def collide_monster(self):
+        for i in range(5):
+            self.image.clip_draw(6 + i * 360, 1 * 360, 360, 360, self.x - i * 2, self.y,
+                                  160, 160)

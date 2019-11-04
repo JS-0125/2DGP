@@ -1,4 +1,5 @@
 from pico2d import *
+from character import Chatacter
 
 class Life:
     def __init__(self):
@@ -12,3 +13,6 @@ class Life:
     def draw(self):
         for i in range(self.count):
             self.image.draw(210 + i * 70, 750, 50, 50)
+
+    def stop(self):
+        self.count -= 1
