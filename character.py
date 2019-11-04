@@ -193,3 +193,4 @@ class Chatacter:
         self.frameX = 5 + i
         self.frameY = 1
         self.x -= 7
+        self.x = clamp(120, self.x, 450)
