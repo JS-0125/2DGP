@@ -40,7 +40,7 @@ def enter():
     for i in range(16):
         tile1[i].x = xpos[i]
         tile1[i].y = ypos[i]
-    game_world.add_objects(tile1, 1)
+    game_world.add_objects(tile1, 0)
 
     xpos = [139.5, 139.5, 139.5,234.5,0,0,0,0,0,0,0,0,0,0,0,0]
     ypos = [200, 500,400,200,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
@@ -49,7 +49,7 @@ def enter():
     for i in range(16):
         tile2[i].x = xpos[i]
         tile2[i].y = ypos[i]
-    game_world.add_objects(tile2, 1)
+    game_world.add_objects(tile2, 0)
 
 
 def exit():
@@ -78,12 +78,12 @@ def update():
         game_framework.change_state(shop_state)
 
     if collide(monster1, character):
-        character.collide_monster()
         life.stop()
-
+        for i in [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4]:
+            character.collide_monster(i)
+            draw()
         if life.count == 0:
             game_framework.change_state(game_over_state)
-
 
 
 def TileCollide():
