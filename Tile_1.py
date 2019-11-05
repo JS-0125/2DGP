@@ -4,18 +4,19 @@ import title_state
 import game_framework
 
 class Tile:
-    image = None
-
-    def __init__(self, x, y):
-        if Tile.image == None:
-            Tile.image = load_image('resourse/tile_2.png')
+    def __init__(self, x, y, mode):
+        if mode == 1:
+            self.image = load_image('resourse/tile_2.png')
+        else:
+            self.image = load_image('resourse/tile_1.png')
         self.x, self.y = x, y
+        self.delY = 0
 
     def draw(self):
         self.image.draw(self.x, self.y, 95, 95)
 
+    def update(self):
+        self.y += self.delY
+
     def get_bb(self):
         return self.x - 42.5, self.y - 42.5, self.x + 42.5, self.y + 42.5
-
-    def update(self):
-        pass

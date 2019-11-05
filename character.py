@@ -128,18 +128,18 @@ class AttackState:
                 if (character.frameX == 0):
                     character.frameY = 3
                     character.frameX = 2
-                    for tile in main_state.tile2:
+                    for tile in main_state.tile1:
                         if main_state.collide(tile, character):
-                            main_state.tile2.remove(tile)
+                            main_state.tile1.remove(tile)
                             game_world.remove_object(tile)
             elif (character.frameY == 7):
                 character.frameX = (character.frameX - 1) % 19
                 if (character.frameX == 0):
                     character.frameY = 3
                     character.frameX = 2
-                    for tile in main_state.tile2:
+                    for tile in main_state.tile1:
                         if main_state.collide(tile, character):
-                            main_state.tile2.remove(tile)
+                            main_state.tile1.remove(tile)
                             game_world.remove_object(tile)
         else:
             character.y += character.dirY

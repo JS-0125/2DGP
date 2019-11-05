@@ -16,3 +16,9 @@ class Tile_2:
 
     def update(self):
         pass
+
+    def collide_move(self):
+        self.y += 1;
+
+    def collide_stop(self):
+        self.y -= 1;

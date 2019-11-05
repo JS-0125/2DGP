@@ -9,6 +9,7 @@ class Crystal:
 
     def update(self):
         self.frame = (self.frame + 1) % 6
+        self. y += 1
 
     def draw(self):
         self.image.clip_draw(self.frame * 66, 0, 66, 100, self.x, self.y)

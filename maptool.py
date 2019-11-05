@@ -18,7 +18,7 @@ image = None
 speed, inspeed = 0.28, 0
 stop = True
 tiles, tri_obses = [] , []
-real_x =0
+real_y = 1800
 delete_idx = 0
 
 
@@ -61,7 +61,7 @@ def exit():
         f.write('\n')
     f.write('end\n')
 
-    f2 = open('triangle_obstacle_pos.txt', mode = 'wt')
+    f2 = open('crystal.txt', mode = 'wt')
     for i in range(0,len(tri_obses)):
         f2.write(str(tri_obs_x[i]))
         f2.write('\n')
@@ -84,42 +84,21 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_KEYDOWN:
-            if(event.key == SDLK_t):
-                # tile selection
-                mode = 't'
-                if(kind ==1):
-                    image = load_image('resourse/tile_1.png')
-                    size_x = 95
-                    size_y = 95
-                elif(kind == 2):
-                    image = load_image('resourse/tile_2.png')
-                    size_x = 95
-                    size_y = 95
-            if event.key == SDLK_o:
-                # obstacle selection
-                mode = 'o'
-                if(kind == 1):
-                    image = load_image('resouse/crystal.png')
-                    size_x = 66
-                    size_y = 100
-            if(event.key == SDLK_1):
+            if event.key == SDLK_1:
                 kind = 1
-                if(mode == 't'):
-                    image = load_image('resourse/tile_1.png')
-                    size_x = 95
-                    size_y = 95
-                elif(mode == 'o'):
-                    image = load_image('resouse/crystal.png')
-                    size_x = 66
-                    size_y =100
+                image = load_image('resourse/tile_1.png')
+                size_x = 95
+                size_y = 95
             if event.key == SDLK_2:
                 kind = 2
-                if(mode == 't'):
-                    image = load_image('resourse/tile_2.png')
-                    size_x = 95
-                    size_y = 95
+                image = load_image('resourse/tile_2.png')
+                size_x = 95
+                size_y = 95
             if event.key == SDLK_3:
                 kind = 3
+                image = load_image('resourse/crystal.png')
+                size_x = 66
+                size_y = 100
             if event.key == SDLK_BACKSPACE:
                 DeleteBlock()
             if event.key == SDLK_ESCAPE:
@@ -144,14 +123,13 @@ def handle_events():
 def update():
     global speed, real_y, inspeed
     if(stop == False):
-        background.Move(inspeed)
-        speed += 0.0001
-        inspeed = speed
-        real_y -= inspeed
+        background.y -= 1
+        background.update()
+        real_y -= 1
         for tile in tiles:
-            tile.Move(inspeed)
+            tile.update(inspeed)
         for tri_obs in tri_obses:
-            tri_obs.Move(inspeed)
+            tri_obs.update(inspeed)
     delay(0.01)
 
 
@@ -161,30 +139,30 @@ def draw():
     background.draw()
     image.draw(mx,my,size_x,size_y)
     for tile in tiles:
-        tile.Draw()
+        tile.draw()
     for tri_obs in tri_obses:
-        tri_obs.Draw()
+        tri_obs.draw()
     update_canvas()
 
     pass
 
 def Create():
     global delete_idx
-    if mode == 't' and kind == 1:
+    if kind == 1:
         #basic tile
-        tiles.append(Tile(x,y))
+        tiles.append(Tile(x,y, 1))
         tile_x.append(x+real_x)
         tile_y.append(y)
         tile_mode.append(1)
         delete_idx = "tile"
-    elif mode == 't' and kind ==2:
+    elif kind ==2:
         #tile2
-        tiles.append(Tile_2(x , y))
+        tiles.append(Tile(x , y, 0))
         tile_x.append(x + real_x)
         tile_y.append(y)
         tile_mode.append(2)
         delete_idx = "tile"
-    elif mode == 'o' and kind == 1:
+    elif  kind == 3:
         #triangle obstacle
         tri_obses.append(Crystal(x,y))
         tri_obs_x.append(x+real_x)
@@ -226,12 +204,11 @@ def ReadPos():
             break
         tile_mode.append(int(line))
         if tile_mode[len(tile_mode)-1] == 1:
-            tiles.append(Tile(tile_x[len(tile_x)-1],tile_y[len(tile_x)-1],100,100,1))
+            tiles.append(Tile(tile_x[len(tile_x)-1],tile_y[len(tile_x)-1],1))
         elif tile_mode[len(tile_mode)-1] == 2:
-            tiles.append(Tile_2(tile_x[len(tile_x)-1],tile_y[len(tile_y)-1],70,20,2))
+            tiles.append(Tile(tile_x[len(tile_x)-1],tile_y[len(tile_y)-1],2))
 
-
-    f2 = open('crystal.txt', mode='rt')
+    f2 = open('crystal.txt', mode = 'rt')
     #triangle obstacle pos read
     while True:
         line = f2.readline()

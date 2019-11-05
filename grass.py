@@ -3,11 +3,12 @@ from pico2d import *
 class Grass:
     def __init__(self):
         self.image = load_image('resourse/background.png')
-
+        self.y = 1400
+        self.delY = 0
     def update(self):
-        pass
+        self.y + self.delY
 
     def draw(self):
-        self.image.draw(280, -100)
+        self.image.clip_draw(0, self.y, 575 , 800, 280, 400)
 
-    def move(self):
+

@@ -4,14 +4,15 @@ import game_world
 import game_framework
 import shop_state
 import game_over_state
+import maptool
 
 from character import Chatacter
 from grass import Grass
 from Tile_1 import Tile
-from Tile_2 import Tile_2
 from monster1 import Enemy
 from Life import Life
 from crystal import Crystal
+
 
 name = "MainState"
 
@@ -19,41 +20,24 @@ character = None
 grass = None
 monster1 = None
 tile1 = None
-tile2 = None
 life = None
 crystal = None
 
 def enter():
-    global character, grass, monster1, tile1, tile2, life, crystal
+    global character, grass, monster1, tile1, life, crystal
     character = Chatacter()
     grass = Grass()
     monster1 = Enemy()
     life= Life()
-    crystal = Crystal()
+    crystal = Crystal(139.5, 300)
 
     game_world.add_object(character, 1)
     game_world.add_object(monster1, 1)
     game_world.add_object(grass, 0)
     game_world.add_object(life, 1)
     game_world.add_object(crystal, 1)
-
-    xpos = [139.5, 139.5, 139.5, 234.5, 234.5, 234.5, 234.5, 234.5, 329.5, 329.5, 329.5, 329.5, 424, 424, 424, 424]
-    ypos = [1500, 1000, 900, 1500, 1000, 1000, 500, 1000, 1500, 900, 500, 200, 1200, 900, 500, 200]
-    tile1 = [Tile() for i in range(0,16)]
-
-    for i in range(16):
-        tile1[i].x = xpos[i]
-        tile1[i].y = ypos[i]
+    tile1 = maptool.tiles
     game_world.add_objects(tile1, 0)
-
-    xpos = [139.5, 139.5, 139.5,234.5,0,0,0,0,0,0,0,0,0,0,0,0]
-    ypos = [200, 500,400,200,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]
-
-    tile2 = [Tile_2() for i in range(0,16)]
-    for i in range(16):
-        tile2[i].x = xpos[i]
-        tile2[i].y = ypos[i]
-    game_world.add_objects(tile2, 0)
 
 
 def exit():
@@ -72,9 +56,6 @@ def handle_events():
 
 
 def update():
-    for game_object in game_world.all_objects():
-        game_object.update()
-
     TileCollide()
 
     if character.y <= 100:
@@ -92,23 +73,29 @@ def update():
     if collide(crystal, character):
         game_world.remove_object(crystal)
 
+    for game_object in game_world.all_objects():
+        game_object.update()
+
+
 
 def TileCollide():
     for tile in tile1:
         if collide(tile, character):
             if tile.y - 42.5 < character.y - 80:
                 character.stop()
+                for tile_tmp in tile1:
+                    tile_tmp.delY = 0
             else:
                 character.x = tile.x - 50
             break
         else:
-            character.dirY = -8
-    for tile in tile2:
-        if collide(tile, character):
-            character.stop()
-            break
-
-
+            if (character.y <= 400):
+                character.dirY = 0
+                grass.delY = -8
+                for tile_tmp in tile1:
+                    tile_tmp.delY = 8
+            else:
+                 character.dirY = -8
 
 def draw():
     clear_canvas()
