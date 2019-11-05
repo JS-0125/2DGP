@@ -3,10 +3,10 @@ from pico2d import *
 class Tile_2:
     image = None
 
-    def __init__(self):
+    def __init__(self, x, y):
         if Tile_2.image == None:
             Tile_2.image = load_image('resourse/tile_1.png')
-        self.x, self.y = 0, 0
+        self.x, self.y = x, y
 
     def draw(self):
         self.image.draw(self.x, self.y, 95, 95)
