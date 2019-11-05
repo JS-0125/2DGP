@@ -1,11 +1,11 @@
 from pico2d import *
 
 class Crystal:
-    def __init__(self):
+    def __init__(self, x, y):
         self.frame = 0
         self.image = load_image('resourse/crystal.png')
-        self.x = 139.5
-        self.y = 300
+        self.x = x
+        self.y = y
 
     def update(self):
         self.frame = (self.frame + 1) % 6

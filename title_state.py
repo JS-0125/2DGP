@@ -1,7 +1,7 @@
 import game_framework
 from pico2d import *
 import main_state
-
+import maptool
 
 name = "TitleState"
 image_title = None
@@ -29,6 +29,8 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(main_state)
+            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
+                game_framework.change_state(maptool)
 
 
 def draw():

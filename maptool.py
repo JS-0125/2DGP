@@ -4,23 +4,16 @@ import main_state
 name = "MaptoolState"
 
 from pico2d import*
-import struct
 from grass import Grass
 
 from Tile_1 import Tile
 from Tile_2 import Tile_2
-
-
-import Tile_1
-import Tile_2
-import obstacle_class
-
-
+from crystal import Crystal
 
 background = None
 mode, kind = 0,0
 tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y = [], [],[],[],[]
-x, y, mx, my, size_x,size_y = 0,0,0,0,0,0
+x, y, mx, my, size_x, size_y = 0, 0, 0, 0, 0, 0
 image = None
 speed, inspeed = 0.28, 0
 stop = True
@@ -38,7 +31,7 @@ def enter():
     global image
     image = load_image('resourse/tile_1.png')
 
-    global x, y, mx, my, size_x,size_y, real_x, stop
+    global x, y, mx, my, size_x ,size_y, real_x, stop
     size_x = 100
     size_y = 100
     real_x = 0
@@ -96,35 +89,35 @@ def handle_events():
                 mode = 't'
                 if(kind ==1):
                     image = load_image('resourse/tile_1.png')
-                    size_x = 100
-                    size_y = 100
+                    size_x = 95
+                    size_y = 95
                 elif(kind == 2):
                     image = load_image('resourse/tile_2.png')
-                    size_x = 70
-                    size_y = 20
+                    size_x = 95
+                    size_y = 95
             if event.key == SDLK_o:
                 # obstacle selection
                 mode = 'o'
                 if(kind == 1):
                     image = load_image('resouse/crystal.png')
-                    size_x = 40
-                    size_y = 40
+                    size_x = 66
+                    size_y = 100
             if(event.key == SDLK_1):
                 kind = 1
                 if(mode == 't'):
                     image = load_image('resourse/tile_1.png')
-                    size_x =100
-                    size_y = 100
+                    size_x = 95
+                    size_y = 95
                 elif(mode == 'o'):
                     image = load_image('resouse/crystal.png')
-                    size_x = 40
-                    size_y =40
+                    size_x = 66
+                    size_y =100
             if event.key == SDLK_2:
                 kind = 2
                 if(mode == 't'):
                     image = load_image('resourse/tile_2.png')
-                    size_x = 70
-                    size_y = 20
+                    size_x = 95
+                    size_y = 95
             if event.key == SDLK_3:
                 kind = 3
             if event.key == SDLK_BACKSPACE:
@@ -141,20 +134,20 @@ def handle_events():
                 game_framework.change_state(main_state)
         elif event.type == SDL_MOUSEBUTTONDOWN:
             x = event.x
-            y = 510-event.y -1
+            y = 800- event.y -1
             Create()
         elif event.type == SDL_MOUSEMOTION:
             mx = event.x
-            my = 510 - event.y -1
+            my = 800 - event.y -1
 
 
 def update():
-    global speed, real_x, inspeed
+    global speed, real_y, inspeed
     if(stop == False):
         background.Move(inspeed)
         speed += 0.0001
         inspeed = speed
-        real_x += inspeed
+        real_y -= inspeed
         for tile in tiles:
             tile.Move(inspeed)
         for tri_obs in tri_obses:
@@ -165,7 +158,7 @@ def update():
 def draw():
     hide_cursor()
     clear_canvas()
-    background.Draw()
+    background.draw()
     image.draw(mx,my,size_x,size_y)
     for tile in tiles:
         tile.Draw()
@@ -193,13 +186,11 @@ def Create():
         delete_idx = "tile"
     elif mode == 'o' and kind == 1:
         #triangle obstacle
-        tri_obses.append(obstacle_class.OBSTACLE_TRIANGLE(x,y))
+        tri_obses.append(Crystal(x,y))
         tri_obs_x.append(x+real_x)
         tri_obs_y.append(y)
         delete_idx = "tri_obs"
 
-
-    pass
 
 def DeleteBlock():
     if(delete_idx =="tile"):
@@ -255,7 +246,7 @@ def ReadPos():
             break
         tri_obs_y.append(float(line))
 
-        tri_obses.append(obstacle_class.OBSTACLE_TRIANGLE(tri_obs_x[len(tri_obs_x)-1],tri_obs_y[len(tri_obs_y)-1]))
+        tri_obses.append(Crystal(tri_obs_x[len(tri_obs_x)-1],tri_obs_y[len(tri_obs_y)-1]))
 
     f.close()
     f2.close()

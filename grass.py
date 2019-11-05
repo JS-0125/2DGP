@@ -9,3 +9,5 @@ class Grass:
 
     def draw(self):
         self.image.draw(280, -100)
+
+    def move(self):
