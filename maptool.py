@@ -7,7 +7,6 @@ from pico2d import*
 from grass import Grass
 
 from Tile_1 import Tile
-from Tile_2 import Tile_2
 from crystal import Crystal
 
 background = None

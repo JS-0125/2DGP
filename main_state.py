@@ -8,7 +8,6 @@ import maptool
 
 from character import Chatacter
 from grass import Grass
-from Tile_1 import Tile
 from monster1 import Enemy
 from Life import Life
 from crystal import Crystal
