@@ -34,11 +34,11 @@ class IdleState:
     @staticmethod
     def enter(character, event):
         if(event == RIGHT_UP):
-            character.dir -= 1
+            character.dir = 0
             character.frameX = 2
             character.frameY = 3
         elif(event==LEFT_UP):
-            character.dir += 1
+            character.dir = 0
             character.frameX = 2
             character.frameY = 3
         elif event == ESCAPE:
@@ -66,11 +66,11 @@ class RunState:
     @staticmethod
     def enter(character, event):
         if (event == RIGHT_DOWN):
-            character.dir += 1
+            character.dir = 1
             character.frameX = 0
             character.frameY = 4
         elif (event == LEFT_DOWN):
-            character.dir -= 1
+            character.dir = -1
             character.frameX = 0
             character.frameY = 6
 
@@ -130,8 +130,11 @@ class AttackState:
                     character.frameX = 2
                     for tile in main_state.tile1:
                         if main_state.collide(tile, character):
-                            main_state.tile1.remove(tile)
-                            game_world.remove_object(tile)
+                            if tile.mode == 2:
+                                 main_state.tile1.remove(tile)
+                                 game_world.remove_object(tile)
+                            else:
+                                pass
             elif (character.frameY == 7):
                 character.frameX = (character.frameX - 1) % 19
                 if (character.frameX == 0):
@@ -139,8 +142,11 @@ class AttackState:
                     character.frameX = 2
                     for tile in main_state.tile1:
                         if main_state.collide(tile, character):
-                            main_state.tile1.remove(tile)
-                            game_world.remove_object(tile)
+                             if tile.mode == 2:
+                                 main_state.tile1.remove(tile)
+                                 game_world.remove_object(tile)
+                             else:
+                                 pass
         else:
             character.y += character.dirY
 
@@ -159,7 +165,7 @@ class Chatacter:
         self.x, self.y = 120, 800
         self.frameX, self.frameY = 2, 3
         self.image = load_image('resourse/character.png')
-        self.dir, self.dirY = 0, -5
+        self.dir, self.dirY = 0, -8
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
@@ -168,7 +174,7 @@ class Chatacter:
         self.event_que.insert(0, event)
 
     def get_bb(self):
-        return self.x - 50, self.y - 80, self.x + 15, self.y - 20
+        return self.x - 20, self.y - 80, self.x + 15, self.y - 20
 
     def update(self):
         self.cur_state.do(self)
@@ -180,6 +186,7 @@ class Chatacter:
 
     def draw(self):
         self.cur_state.draw(self)
+        draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

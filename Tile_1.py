@@ -2,9 +2,12 @@ import game_world
 from pico2d import *
 import title_state
 import game_framework
+import grass
+import main_state
 
 class Tile:
     def __init__(self, x, y, mode):
+        self.mode = mode
         if mode == 1:
             self.image = load_image('resourse/tile_2.png')
         else:
@@ -13,10 +16,18 @@ class Tile:
         self.delY = 0
 
     def draw(self):
-        self.image.draw(self.x, self.y, 95, 95)
+        self.image.draw(self.x, self.y - main_state.grass.y, 95, 95)
+        draw_rectangle(*self.get_bb())
+
+    def draw1(self, Real):
+        self.image.draw(self.x, self.y - Real, 95, 95)
+
 
     def update(self):
         self.y += self.delY
 
+    def update1(self, delY):
+        self.y += delY
+
     def get_bb(self):
-        return self.x - 42.5, self.y - 42.5, self.x + 42.5, self.y + 42.5
+      return self.x - 47.5, self.y - main_state.grass.y - 47.5 , self.x + 47.5, self.y - main_state.grass.y + 47.5

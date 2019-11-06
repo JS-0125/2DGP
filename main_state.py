@@ -28,16 +28,20 @@ def enter():
     grass = Grass()
     monster1 = Enemy()
     life= Life()
-    crystal = Crystal(139.5, 300)
 
     game_world.add_object(character, 1)
     game_world.add_object(monster1, 1)
     game_world.add_object(grass, 0)
     game_world.add_object(life, 1)
-    game_world.add_object(crystal, 1)
+
+
+    maptool.ReadPos()
+
     tile1 = maptool.tiles
     game_world.add_objects(tile1, 0)
 
+    crystal = maptool.tri_obses
+    game_world.add_objects(crystal,1)
 
 def exit():
     game_world.clear()
@@ -69,8 +73,9 @@ def update():
         if life.count == 0:
             game_framework.change_state(game_over_state)
 
-    if collide(crystal, character):
-        game_world.remove_object(crystal)
+    for crystal_tmp in crystal:
+        if collide(crystal_tmp, character):
+            game_world.remove_object(crystal)
 
     for game_object in game_world.all_objects():
         game_object.update()
@@ -80,12 +85,19 @@ def update():
 def TileCollide():
     for tile in tile1:
         if collide(tile, character):
-            if tile.y - 42.5 < character.y - 80:
+            for tile_tmp in tile1:
+                tile_tmp.delY = 0
+            grass.delY = 0
+            if tile.y - grass.y - 47.5 < character.y - 80:
                 character.stop()
-                for tile_tmp in tile1:
-                    tile_tmp.delY = 0
             else:
-                character.x = tile.x - 50
+                if character.dir == 1:
+                    character.dir = 0
+                    character.x = tile.x - 80
+                elif character.dir == -1:
+                    character.dir = 0
+                    character.x = tile.x + 80
+
             break
         else:
             if (character.y <= 400):
@@ -94,7 +106,8 @@ def TileCollide():
                 for tile_tmp in tile1:
                     tile_tmp.delY = 8
             else:
-                 character.dirY = -8
+                character.dirY = -8
+                grass.delY = -8
 
 def draw():
     clear_canvas()

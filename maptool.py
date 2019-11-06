@@ -14,10 +14,10 @@ mode, kind = 0,0
 tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y = [], [],[],[],[]
 x, y, mx, my, size_x, size_y = 0, 0, 0, 0, 0, 0
 image = None
-speed, inspeed = 0.28, 0
+speed, inspeed = 8, 0
 stop = True
 tiles, tri_obses = [] , []
-real_y = 1800
+real_y = 1400
 delete_idx = 0
 
 
@@ -38,7 +38,7 @@ def enter():
 
     global background, speed, inspeed
     background = Grass()
-    speed= 2.8
+    speed = 8
     inspeed = 0
 
     global tiles, tri_obses, delete_idx
@@ -122,13 +122,13 @@ def handle_events():
 def update():
     global speed, real_y, inspeed
     if(stop == False):
-        background.y -= 1
+        background.y -= 8
         background.update()
-        real_y -= 1
+        real_y -= 8
         for tile in tiles:
-            tile.update(inspeed)
+            tile.update1(inspeed)
         for tri_obs in tri_obses:
-            tri_obs.update(inspeed)
+            tri_obs.update1(inspeed)
     delay(0.01)
 
 
@@ -138,9 +138,9 @@ def draw():
     background.draw()
     image.draw(mx,my,size_x,size_y)
     for tile in tiles:
-        tile.draw()
+        tile.draw1(real_y)
     for tri_obs in tri_obses:
-        tri_obs.draw()
+        tri_obs.draw1(real_y)
     update_canvas()
 
     pass
@@ -151,21 +151,21 @@ def Create():
         #basic tile
         tiles.append(Tile(x,y, 1))
         tile_x.append(x+real_x)
-        tile_y.append(y)
+        tile_y.append(y + real_y)
         tile_mode.append(1)
         delete_idx = "tile"
     elif kind ==2:
         #tile2
         tiles.append(Tile(x , y, 0))
         tile_x.append(x + real_x)
-        tile_y.append(y)
+        tile_y.append(y+ real_y)
         tile_mode.append(2)
         delete_idx = "tile"
     elif  kind == 3:
         #triangle obstacle
         tri_obses.append(Crystal(x,y))
-        tri_obs_x.append(x+real_x)
-        tri_obs_y.append(y)
+        tri_obs_x.append(x + real_x)
+        tri_obs_y.append(y+ real_y)
         delete_idx = "tri_obs"
 
 
