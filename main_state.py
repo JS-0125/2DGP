@@ -5,6 +5,7 @@ import game_framework
 import shop_state
 import game_over_state
 import maptool
+import crystal_keyboard
 
 from character import Chatacter
 from grass import Grass
@@ -74,6 +75,9 @@ def update():
     for crystal_tmp in crystal:
         if collide(crystal_tmp, character):
             game_world.remove_object(crystal_tmp)
+            crystal.remove(crystal_tmp)
+            game_framework.push_state(crystal_keyboard)
+            break
 
     for game_object in game_world.all_objects():
         game_object.update()
@@ -125,3 +129,9 @@ def collide(a, b):
     if bottom_a > top_b: return False
 
     return True
+
+def pause():
+    pass
+
+def resume():
+    pass
