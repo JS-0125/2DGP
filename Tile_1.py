@@ -24,7 +24,7 @@ class Tile:
 
 
     def update(self):
-        self.y += self.delY
+        pass
 
     def update1(self, delY):
         self.y += delY

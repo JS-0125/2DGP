@@ -10,8 +10,6 @@ from character import Chatacter
 from grass import Grass
 from monster1 import Enemy
 from Life import Life
-from crystal import Crystal
-
 
 name = "MainState"
 
@@ -75,7 +73,7 @@ def update():
 
     for crystal_tmp in crystal:
         if collide(crystal_tmp, character):
-            game_world.remove_object(crystal)
+            game_world.remove_object(crystal_tmp)
 
     for game_object in game_world.all_objects():
         game_object.update()
@@ -85,9 +83,9 @@ def update():
 def TileCollide():
     for tile in tile1:
         if collide(tile, character):
+            grass.delY = 0
             for tile_tmp in tile1:
                 tile_tmp.delY = 0
-            grass.delY = 0
             if tile.y - grass.y - 47.5 < character.y - 80:
                 character.stop()
             else:
@@ -97,11 +95,10 @@ def TileCollide():
                 elif character.dir == -1:
                     character.dir = 0
                     character.x = tile.x + 80
-
             break
         else:
             if (character.y <= 400):
-                character.dirY = 0
+                character.dirY = -0.01
                 grass.delY = -8
                 for tile_tmp in tile1:
                     tile_tmp.delY = 8

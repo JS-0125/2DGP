@@ -112,7 +112,7 @@ def handle_events():
                 game_framework.change_state(main_state)
         elif event.type == SDL_MOUSEBUTTONDOWN:
             x = event.x
-            y = 800- event.y -1
+            y = 800 - event.y -1
             Create()
         elif event.type == SDL_MOUSEMOTION:
             mx = event.x
@@ -122,7 +122,6 @@ def handle_events():
 def update():
     global speed, real_y, inspeed
     if(stop == False):
-        background.y -= 8
         background.update()
         real_y -= 8
         for tile in tiles:
@@ -138,9 +137,9 @@ def draw():
     background.draw()
     image.draw(mx,my,size_x,size_y)
     for tile in tiles:
-        tile.draw1(real_y)
+        tile.draw1(inspeed)
     for tri_obs in tri_obses:
-        tri_obs.draw1(real_y)
+        tri_obs.draw1(inspeed)
     update_canvas()
 
     pass

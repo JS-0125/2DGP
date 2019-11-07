@@ -13,13 +13,13 @@ class Crystal:
 
     def update1(self, DelY):
         self.frame = (self.frame + 1) % 6
-        self. y += DelY
 
     def draw1(self, DelY):
         self.image.clip_draw(self.frame * 66, 0, 66, 100, self.x, self.y - DelY)
 
     def draw(self):
         self.image.clip_draw(self.frame * 66, 0, 66, 100, self.x, self.y - main_state.grass.y)
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 33 , self.y - 50, self.x + 33, self.y + 50
+        return self.x - 33 , self.y - main_state.grass.y - 50, self.x + 33, self.y - main_state.grass.y + 50
