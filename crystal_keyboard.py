@@ -3,9 +3,14 @@ from pico2d import *
 import random
 import game_framework
 
-image = None
+image_up = load_image('resourse/arrow_up.png')
+image_down = load_image('resourse/arrow_down.png')
+image_right = load_image('resourse/arrow_right.png')
+image_left = load_image('resourse/arrow_left.png')
+
 keyboard_input_list = []
 keyboard_check_list = []
+keyboard_default_list = {0: image_up, 1: image_down, 2: image_right, 3: image_left}
 
 for i in range(5):
     keyboard_input_list.append(random(4))
@@ -28,17 +33,13 @@ def handle_events():
 
 def update():
     if keyboard_input_list == keyboard_check_list:
-        pass
+        for i in keyboard_input_list:
+            tmp = keyboard_default_list[i]
+            tmp.clip_draw(200, 0, 200, 200, 280, 600)
     else:
         pass
 
 def draw():
     for i in keyboard_input_list:
-        if i == 0:
-            pass
-        elif i == 1:
-            pass
-        elif i == 2:
-            pass
-        elif i == 3:
-            pass
+        tmp = keyboard_default_list[i]
+        tmp.clip_draw(0,0,200,200,280,600)
