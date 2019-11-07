@@ -32,16 +32,19 @@ def enter():
     keyboard_default_list.append(image_down)
     keyboard_default_list.append(image_right)
     keyboard_default_list.append(image_left)
+    main_state.draw()
+
 
 def exit():
     global image_up, image_down, image_right, image_left
-    del (image_up)
-    del (image_down)
-    del (image_right)
-    del (image_left)
+    del(image_up)
+    del(image_down)
+    del(image_right)
+    del(image_left)
     keyboard_input_list.clear()
     keyboard_check_list.clear()
     keyboard_default_list.clear()
+
 
 def handle_events():
     events = get_events()
@@ -68,12 +71,9 @@ def update():
         delay(1)
         game_framework.pop_state()
 
-
 def draw():
     interval = 0
-    main_state.draw()
     for i in keyboard_input_list:
         keyboard_default_list[i].clip_draw(frameX, 0, 200, 200, 70 + interval, 600, 100, 100)
         interval += 105
     update_canvas()
-
