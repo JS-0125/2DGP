@@ -68,7 +68,7 @@ def update():
     if keyboard_input_list == keyboard_check_list:
         frameX = 200
         draw()
-        delay(1)
+        delay(0.5)
         game_framework.pop_state()
 
 def draw():
