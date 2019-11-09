@@ -6,9 +6,11 @@ import title_state
 name = "ShopState"
 shop = None
 
+
 def enter():
     global shop
     shop = load_image('resourse/shop.png')
+
 
 def exit():
     global shop
@@ -26,17 +28,21 @@ def handle_events():
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(title_state)
 
+
 def draw():
     clear_canvas()
     shop.draw(280, 450)
 
     update_canvas()
 
+
 def update():
     pass
 
+
 def pause():
     pass
+
 
 def resume():
     pass
