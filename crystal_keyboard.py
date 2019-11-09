@@ -71,6 +71,7 @@ def update():
         delay(0.5)
         game_framework.pop_state()
 
+
 def draw():
     interval = 0
     for i in keyboard_input_list:

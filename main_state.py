@@ -102,13 +102,19 @@ def TileCollide():
             break
         else:
             if (character.y <= 400):
-                character.dirY = -0.01
-                grass.delY = -8
-                for tile_tmp in tile1:
-                    tile_tmp.delY = 8
+                if grass.y <= -700:
+                    character.dirY = -8
+                    grass.delY = 0
+                else:
+                    character.dirY = 0.01
+                    grass.delY = -8
+                    for tile_tmp in tile1:
+                        tile_tmp.delY = 8
             else:
                 character.dirY = -8
                 grass.delY = -8
+                for tile_tmp in tile1:
+                    tile_tmp.delY = 8
 
 def draw():
     clear_canvas()
