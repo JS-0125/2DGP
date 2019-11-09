@@ -70,6 +70,8 @@ def update():
         draw()
         delay(0.5)
         game_framework.pop_state()
+    else:
+        pass
 
 
 def draw():
