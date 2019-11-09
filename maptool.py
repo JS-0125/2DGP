@@ -103,9 +103,11 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             if event.key == SDLK_s:
+                background.delY = 0
                 inspeed = 0
                 stop = True
             if event.key == SDLK_r:
+                background.delY = -8
                 inspeed = speed
                 stop = False
             if event.key == SDLK_m:
@@ -123,6 +125,7 @@ def update():
     global speed, real_y, inspeed
     if(stop == False):
         background.update()
+
         real_y -= 8
         for tile in tiles:
             tile.update1(inspeed)
