@@ -1,11 +1,10 @@
 from pico2d import *
 
 
-class Inventory:
+class ItemMineTime:
     def __init__(self):
         self.image = load_image('resourse/background.png')
         self.y = 1400
-        self.bag = []
 
     def update(self):
         pass
