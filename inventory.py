@@ -6,6 +6,7 @@ class Inventory:
         self.image = load_image('resourse/background.png')
         self.y = 1400
         self.bag = []
+        self.money = 0
 
     def update(self):
         pass
