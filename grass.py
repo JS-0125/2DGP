@@ -14,6 +14,3 @@ class Grass:
 
     def draw(self):
         self.image.clip_draw(0, self.y, 575 , 800, 280, 400)
-
-
-
