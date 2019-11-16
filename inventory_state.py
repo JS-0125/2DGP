@@ -1,21 +1,18 @@
 import game_framework
 from pico2d import *
 import game_world
-import title_state
+import main_state
 import shop_state
+from inventory import Inventory
+
 name = "IventoryState"
-shop = None
 
 
 def enter():
-    global inventory
-    inventory = load_image('resourse/inventory.png')
     shop_state.draw()
 
 def exit():
-    global inventory
-    del(inventory)
-
+    pass
 
 def handle_events():
     events = get_events()
@@ -27,12 +24,12 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_a):
                 game_framework.pop_state()
-
+            elif event.type == SDL_MOUSEMOTION:
+                x, y = event.x, 800 - 1 - event.y
 
 def draw():
 
-    inventory.draw(280, 400, 560, 800)
-
+    main_state.inventory.draw(280, 400, 560, 800)
     update_canvas()
 
 

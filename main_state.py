@@ -11,6 +11,7 @@ from character import Chatacter
 from grass import Grass
 from monster1 import Enemy
 from Life import Life
+from inventory import Inventory
 
 name = "MainState"
 
@@ -20,13 +21,15 @@ monster1 = None
 tile1 = None
 life = None
 crystal = None
+inventory = None
 
 def enter():
-    global character, grass, monster1, tile1, life, crystal
+    global character, grass, monster1, tile1, life, crystal, inventory
     character = Chatacter()
     grass = Grass()
     monster1 = Enemy()
-    life= Life()
+    life = Life()
+    inventory = Inventory()
 
     game_world.add_object(character, 1)
     game_world.add_object(monster1, 1)
@@ -40,7 +43,7 @@ def enter():
     game_world.add_objects(tile1, 0)
 
     crystal = maptool.tri_obses
-    game_world.add_objects(crystal,1)
+    game_world.add_objects(crystal, 1)
 
 def exit():
     game_world.clear()

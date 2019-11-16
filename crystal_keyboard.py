@@ -3,6 +3,7 @@ from pico2d import *
 import random
 import game_framework
 import main_state
+import inventory_state
 
 name = "CrystalState"
 
@@ -67,7 +68,7 @@ def handle_events():
 def update():
     global frameX
     if keyboard_input_list == keyboard_check_list:
-        main_state.crystal.got_crystal_count += 1
+        main_state.inventory.got_crystal_count += 1
         frameX = 200
         draw()
         delay(0.5)
