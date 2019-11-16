@@ -70,7 +70,6 @@ def handle_events():
 def update():
     global frameX
     if keyboard_input_list == keyboard_check_list:
-        main_state.inventory.got_crystal_count += 1
         main_state.inventory.my_bag.append(Crystal(0,0))
         frameX = 200
         draw()

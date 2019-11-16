@@ -3,16 +3,21 @@ from pico2d import *
 import game_world
 import main_state
 import shop_state
-from inventory import Inventory
+
 
 name = "IventoryState"
+font = None
 
 
 def enter():
+    global font
     shop_state.draw()
+    font = load_font('ENCR10B.TTF', 16)
+
 
 def exit():
     pass
+
 
 def handle_events():
     events = get_events()
@@ -33,6 +38,7 @@ def handle_events():
 
 def draw():
     main_state.inventory.draw()
+    font.draw(80, 600, 'main_state.inventory.money', (255, 255, 0))
     update_canvas()
 
 
