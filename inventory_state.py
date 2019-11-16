@@ -27,8 +27,8 @@ def handle_events():
             elif event.type == SDL_MOUSEMOTION:
                 x, y = event.x, 800 - 1 - event.y
             elif event.type == SDL_MOUSEBUTTONDOWN:
-                x = event.x
-                y = 800 - event.y - 1
+                x, y = event.x, 800 - 1 - event.y
+                main_state.inventory.click(x, y)
 
 
 def draw():
@@ -46,3 +46,4 @@ def pause():
 
 def resume():
     pass
+
