@@ -1,11 +1,10 @@
 from pico2d import *
-import crystal
+from crystal import Crystal
 
 
 class Inventory:
     def __init__(self):
         self.image = load_image('resourse/inventory.png')
-        self.y = 1400
         self.my_bag = []
         self.money = 0
         self.got_crystal_count = 0
@@ -15,6 +14,8 @@ class Inventory:
 
     def draw(self):
         self.image.draw(280, 400, 560, 800)
+        for i in self.my_bag:
+            self.image.draw(280, 400, 560, 800)
 
     def click(self, x, y):
         # buy
@@ -54,5 +55,5 @@ class Inventory:
                 self.my_bag.remove(5)
 
     def sell(self, i):
-        if self.my_bag[i] == crystal:
+        if self.my_bag[i] == Crystal():
             self.money += 10000
