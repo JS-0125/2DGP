@@ -55,5 +55,5 @@ class Inventory:
                 self.my_bag.remove(5)
 
     def sell(self, i):
-        if self.my_bag[i] == Crystal():
+        if self.my_bag[i] == Crystal(0,0):
             self.money += 10000
