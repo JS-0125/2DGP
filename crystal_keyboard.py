@@ -19,7 +19,7 @@ keyboard_default_list = []
 
 
 def enter():
-    global image_up, image_down, image_right, image_left, keyboard_input_list, keyboard_default_list
+    global image_up, image_down, image_right, image_left, keyboard_input_list, keyboard_default_list, frameX
 
     for i in range(5):
         keyboard_input_list.append(random.randrange(0,4))
@@ -33,6 +33,8 @@ def enter():
     keyboard_default_list.append(image_down)
     keyboard_default_list.append(image_right)
     keyboard_default_list.append(image_left)
+
+    frameX = 0
     main_state.draw()
 
 

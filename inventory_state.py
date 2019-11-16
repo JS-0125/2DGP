@@ -28,8 +28,7 @@ def handle_events():
                 x, y = event.x, 800 - 1 - event.y
 
 def draw():
-
-    main_state.inventory.draw(280, 400, 560, 800)
+    main_state.inventory.draw()
     update_canvas()
 
 
