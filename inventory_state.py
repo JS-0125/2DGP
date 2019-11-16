@@ -12,7 +12,7 @@ font = None
 def enter():
     global font
     shop_state.draw()
-    font = load_font('ENCR10B.TTF', 16)
+    font = load_font('resourse/ENCR10B.TTF', 16)
 
 
 def exit():
@@ -38,7 +38,7 @@ def handle_events():
 
 def draw():
     main_state.inventory.draw()
-    font.draw(80, 600, 'main_state.inventory.money', (255, 255, 0))
+    font.draw(80, 420, '%d' % main_state.inventory.money, (1, 1, 1))
     update_canvas()
 
 

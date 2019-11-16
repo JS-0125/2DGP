@@ -9,14 +9,15 @@ class Inventory:
         self.money = 0
 
     def update(self):
-       pass
+        pass
 
     def draw(self):
         count_tmp = 0
         self.image.draw(280, 400, 560, 800)
         for i in self.my_bag:
-            i.image.clip_draw(0, 0, 66, 100, 120 + 155 * count_tmp, 310)
-            count_tmp += 1
+            if i == 'crystal':
+                Crystal(0, 0).image.clip_draw(0, 0, 66, 100, 120 + 155 * count_tmp, 310)
+                count_tmp += 1
 
     def click(self, x, y):
         # buy
@@ -56,5 +57,5 @@ class Inventory:
                 self.my_bag.remove(self.my_bag[5])
 
     def sell(self, i):
-        if self.my_bag[i] == Crystal(0,0):
+        if self.my_bag[i] == 'crystal':
             self.money += 10000
