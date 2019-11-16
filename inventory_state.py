@@ -26,6 +26,10 @@ def handle_events():
                 game_framework.pop_state()
             elif event.type == SDL_MOUSEMOTION:
                 x, y = event.x, 800 - 1 - event.y
+            elif event.type == SDL_MOUSEBUTTONDOWN:
+                x = event.x
+                y = 800 - event.y - 1
+
 
 def draw():
     main_state.inventory.draw()

@@ -13,3 +13,6 @@ class Inventory:
 
     def draw(self):
         self.image.draw(280, 400, 560, 800)
+
+    def click(self):
+        
