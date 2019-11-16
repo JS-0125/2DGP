@@ -36,11 +36,12 @@ def enter():
 
 
 def exit():
-    global image_up, image_down, image_right, image_left
+    global image_up, image_down, image_right, image_left, frameX
     del(image_up)
     del(image_down)
     del(image_right)
     del(image_left)
+    del(frameX)
     keyboard_input_list.clear()
     keyboard_check_list.clear()
     keyboard_default_list.clear()
@@ -66,6 +67,7 @@ def handle_events():
 def update():
     global frameX
     if keyboard_input_list == keyboard_check_list:
+        main_state.crystal.got_crystal_count += 1
         frameX = 200
         draw()
         delay(0.5)

@@ -7,7 +7,7 @@ class Crystal:
         self.image = load_image('resourse/crystal.png')
         self.x = x
         self.y = y
-
+        self.got_crystal_count = 0
     def update(self):
         self.frame = (self.frame + 1) % 6
 

@@ -2,20 +2,19 @@ import game_framework
 from pico2d import *
 import game_world
 import title_state
-import inventory_state
-
-name = "ShopState"
+import shop_state
+name = "IventoryState"
 shop = None
 
 
 def enter():
-    global shop
-    shop = load_image('resourse/shop.png')
-
+    global inventory
+    inventory = load_image('resourse/inventory.png')
+    shop_state.draw()
 
 def exit():
-    global shop
-    del(shop)
+    global inventory
+    del(inventory)
 
 
 def handle_events():
@@ -26,15 +25,13 @@ def handle_events():
         else:
             if(event.type, event.key) == (SDL_KEYDOWN,SDLK_ESCAPE) :
                 game_framework.quit()
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-                game_framework.change_state(title_state)
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_a):
-                game_framework.push_state(inventory_state)
+                game_framework.pop_state()
 
 
 def draw():
-    clear_canvas()
-    shop.draw(280, 550)
+
+    inventory.draw(280, 400, 560, 800)
 
     update_canvas()
 
