@@ -1,9 +1,10 @@
 from pico2d import *
 
 class Enemy:
-    def __init__(self):
-        self. monsterDelX, self.x = 0, 100
+    def __init__(self, x,  y):
+        self. monsterDelX, self.x = 0, x
         self.monsterFrameX = 0
+        self.y = y
         self.image = load_image('resourse/monster1.png')
 
     def update(self):

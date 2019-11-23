@@ -28,13 +28,12 @@ def enter():
     count += 1
     character = Chatacter()
     grass = Grass()
-    monster1 = Enemy()
+
     life = Life()
     if count == 1:
         inventory = Inventory()
 
     game_world.add_object(character, 1)
-    game_world.add_object(monster1, 1)
     game_world.add_object(grass, 0)
     game_world.add_object(life, 1)
 
@@ -45,6 +44,10 @@ def enter():
 
     crystal = maptool.tri_obses
     game_world.add_objects(crystal, 1)
+
+    monster1 = maptool.monsters
+    game_world.add_objects(monster1, 1)
+
 
 def exit():
     game_world.clear()
@@ -68,11 +71,12 @@ def update():
         delay(1)
         game_framework.change_state(shop_state)
 
-    if collide(monster1, character):
-        life.stop()
-        for i in [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4]:
-            character.collide_monster(i)
-            draw()
+    for monster in monster1:
+        if collide(monster, character):
+            life.stop()
+            for i in [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4]:
+                character.collide_monster(i)
+                draw()
         if life.count == 0:
             game_framework.change_state(game_over_state)
 

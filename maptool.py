@@ -8,15 +8,16 @@ from grass import Grass
 
 from Tile_1 import Tile
 from crystal import Crystal
+from monster1 import Enemy
 
 background = None
 mode, kind = 0,0
-tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y = [], [],[],[],[]
+tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y ,monsters_x, monsters_y= [], [], [], [], [], [], []
 x, y, mx, my, size_x, size_y = 0, 0, 0, 0, 0, 0
 image = None
 speed, inspeed = 8, 0
 stop = True
-tiles, tri_obses = [] , []
+tiles, tri_obses, monsters = [], [], []
 real_y = 1400
 delete_idx = 0
 
@@ -25,8 +26,8 @@ def enter():
     global mode, kind
     mode = 't'
     kind = 1
-    global basic_tile_x, basic_tile_y, tile2_x, tile2_y, tri_obs_x, tri_obs_y
-    tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y = [], [], [], [], []
+    global tile2_x, tile2_y, tri_obs_x, tri_obs_y,monsters_x, monsters_y, monsters
+    tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y,monsters_x, monsters_y, monsters = [], [], [], [], [], [], [], []
     global image
     image = load_image('resourse/tile_1.png')
 
@@ -41,7 +42,7 @@ def enter():
     speed = 8
     inspeed = 0
 
-    global tiles, tri_obses, delete_idx
+    global delete_idx
     delete_idx = "tile"
 
     ReadPos()
@@ -51,7 +52,7 @@ def enter():
 def exit():
     # 모드를 나갈때 txt파일에 각 장애물, 타일의 pos값을 저장한다.
     f = open('tile_pos.txt', mode='wt')
-    for i in range(0,len(tiles)):
+    for i in range(len(tiles)):
         f.write(str(tile_x[i]))
         f.write('\n')
         f.write(str(tile_y[i]))
@@ -61,14 +62,24 @@ def exit():
     f.write('end\n')
 
     f2 = open('crystal.txt', mode = 'wt')
-    for i in range(0,len(tri_obses)):
+    for i in range(len(tri_obses)):
         f2.write(str(tri_obs_x[i]))
         f2.write('\n')
         f2.write(str(tri_obs_y[i]))
         f2.write('\n')
     f2.write('end\n')
+
+    f3 = open('monster.txt', mode ='wt')
+    for i in range(len(monsters)):
+        f3.write(str(monsters_x[i]))
+        f3.write('\n')
+        f3.write(str(monsters_y[i]))
+        f3.write('\n')
+    f3.write('end\n')
     f.close()
     f2.close()
+    f3.close()
+
 
 def pause():
     pass
@@ -97,6 +108,11 @@ def handle_events():
                 kind = 3
                 image = load_image('resourse/crystal.png')
                 size_x = 66
+                size_y = 100
+            if event.key == SDLK_4:
+                kind = 4
+                image = load_image('resourse/monster1.png')
+                size_x = 100
                 size_y = 100
             if event.key == SDLK_BACKSPACE:
                 DeleteBlock()
@@ -169,6 +185,12 @@ def Create():
         tri_obs_x.append(x + real_x)
         tri_obs_y.append(y+ real_y)
         delete_idx = "tri_obs"
+    elif  kind == 4:
+        #monster
+        monsters.append(Enemy(x, y))
+        monsters_x.append(x + real_x)
+        monsters_y.append(y + real_y)
+        delete_idx = "monsters"
 
 
 def DeleteBlock():
@@ -182,10 +204,15 @@ def DeleteBlock():
         del tri_obses[len(tri_obses)-1]
         del tri_obs_y[len(tri_obs_y)-1]
         del tri_obs_x[len(tri_obs_x)-1]
-    pass
+
+    if (delete_idx == "monsters"):
+        del monsters[len(monsters) - 1]
+        del monsters[len(monsters_y) - 1]
+        del monsters[len(monsters_x) - 1]
+
 
 def ReadPos():
-    global tile_x,tile_y,tile_mode,tri_obs_x,tri_obs_y,tiles,tri_obses
+    global tile_x,tile_y,tile_mode,tri_obs_x,tri_obs_y,tiles,tri_obses,monsters,monsters_x,monsters_y
     f = open('tile_pos.txt',mode = 'rt')
     #tile pos read
     while True:
@@ -226,5 +253,22 @@ def ReadPos():
 
         tri_obses.append(Crystal(tri_obs_x[len(tri_obs_x)-1],tri_obs_y[len(tri_obs_y)-1]))
 
+    f3 = open('monster.txt', mode ='rt')
+    # monster pos read
+    while True:
+        line = f3.readline()
+        line.strip('\n')
+        if line == "end\n" or not line or line == '':
+            break
+        monsters_x.append(float(line))
+
+        line = f3.readline()
+        line.strip('\n')
+        if line == 'end\n' or not line or line == '':
+            break
+        monsters_y.append(float(line))
+
+        monsters.append(Enemy(monsters_x[len(monsters_x) - 1], monsters_y[len(monsters_y) - 1]))
     f.close()
     f2.close()
+    f3.close()
