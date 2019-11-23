@@ -22,20 +22,21 @@ tile1 = None
 life = None
 crystal = None
 inventory = None
-
+count = 0
 def enter():
-    global character, grass, monster1, tile1, life, crystal, inventory
+    global character, grass, monster1, tile1, life, crystal, inventory, count
+    count += 1
     character = Chatacter()
     grass = Grass()
     monster1 = Enemy()
     life = Life()
-    inventory = Inventory()
+    if count == 1:
+        inventory = Inventory()
 
     game_world.add_object(character, 1)
     game_world.add_object(monster1, 1)
     game_world.add_object(grass, 0)
     game_world.add_object(life, 1)
-
 
     maptool.ReadPos()
 

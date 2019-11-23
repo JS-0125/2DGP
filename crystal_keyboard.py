@@ -76,8 +76,8 @@ def update():
         delay(0.5)
         game_framework.pop_state()
 
-    for i in range(5):
-        if len(keyboard_check_list) > 0 and keyboard_input_list[i] != keyboard_check_list[i]:
+    for i in range(len(keyboard_check_list)):
+        if keyboard_input_list[i] != keyboard_check_list[i]:
             main_state.life.count -= 1
             game_framework.pop_state()
 
