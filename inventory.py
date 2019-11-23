@@ -26,10 +26,10 @@ class Inventory:
         # buy
         if 40 < x < 200 and 590 < y < 615:
             if self.money >= 1000:
-                self.money -= 1000
+                self.buy(1000)
         elif 200 < x < 360 and 590 < y < 615:
             if self.money >= 1000:
-                self.money -= 1000
+                self.buy(1000)
         elif 360 < x < 515 and 590 < y < 615:
             pass
 
@@ -62,3 +62,6 @@ class Inventory:
     def sell(self, i):
         if self.my_bag[i] == 'crystal':
             self.money += 10000
+
+    def buy(self, i):
+        self.money -= i
