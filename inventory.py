@@ -16,7 +16,10 @@ class Inventory:
         self.image.draw(280, 400, 560, 800)
         for i in self.my_bag:
             if i == 'crystal':
-                Crystal(0, 0).image.clip_draw(0, 0, 66, 100, 120 + 155 * count_tmp, 310)
+                if count_tmp < 3:
+                    Crystal(0, 0).image.clip_draw(0, 0, 66, 100, 120 + 155 * count_tmp, 310)
+                else:
+                    Crystal(0, 0).image.clip_draw(0, 0, 66, 100, 120 + 155 * (count_tmp - 3), 310 - 200)
                 count_tmp += 1
 
     def click(self, x, y):
