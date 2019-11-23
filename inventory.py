@@ -63,5 +63,5 @@ class Inventory:
         if self.my_bag[i] == 'crystal':
             self.money += 10000
 
-    def buy(self, i):
-        self.money -= i
+    def buy(self, item_price):
+        self.money -= item_price
