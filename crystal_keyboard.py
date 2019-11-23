@@ -75,8 +75,10 @@ def update():
         draw()
         delay(0.5)
         game_framework.pop_state()
-    else:
-        pass
+    if len(keyboard_check_list) == 5 and keyboard_input_list != keyboard_check_list:
+        main_state.life.count -= 1
+        game_framework.pop_state()
+
 
 
 def draw():
