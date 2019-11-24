@@ -9,7 +9,6 @@ import crystal_keyboard
 
 from character import Chatacter
 from grass import Grass
-from monster1 import Enemy
 from Life import Life
 from inventory import Inventory
 
@@ -23,6 +22,7 @@ life = None
 crystal = None
 inventory = None
 count = 0
+
 def enter():
     global character, grass, monster1, tile1, life, crystal, inventory, count
     count += 1
@@ -100,13 +100,6 @@ def TileCollide():
                 tile_tmp.delY = 0
             if tile.y - grass.y - 47.5 < character.y - 80:
                 character.stop()
-            else:
-                if character.dir == 1:
-                    character.dir = 0
-                    character.x = tile.x - 80
-                elif character.dir == -1:
-                    character.dir = 0
-                    character.x = tile.x + 80
             break
         else:
             if (character.y <= 400):
@@ -124,6 +117,16 @@ def TileCollide():
                 for tile_tmp in tile1:
                     tile_tmp.delY = 8
 
+    for tile in tile1:
+        if collide_tile_left(tile, character):
+            if character.dir == 1:
+                character.dir = 0
+                character.x = tile.x - 80
+            elif character.dir == -1:
+                character.dir = 0
+                character.x = tile.x + 80
+
+
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
@@ -132,9 +135,19 @@ def draw():
     delay(0.02)
 
 
-
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
+
+def collide_tile_left(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb_tile_side()
     left_b, bottom_b, right_b, top_b = b.get_bb()
 
     if left_a > right_b: return False
