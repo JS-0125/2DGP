@@ -60,6 +60,12 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_a:
+            for crystal_tmp in crystal:
+                if collide(crystal_tmp, character):
+                    game_world.remove_object(crystal_tmp)
+                    crystal.remove(crystal_tmp)
+                    game_framework.push_state(crystal_keyboard)
         else:
             character.handle_event(event)
 
@@ -79,13 +85,6 @@ def update():
                 draw()
         if life.count == 0:
             game_framework.change_state(game_over_state)
-
-    for crystal_tmp in crystal:
-        if collide(crystal_tmp, character):
-            game_world.remove_object(crystal_tmp)
-            crystal.remove(crystal_tmp)
-            game_framework.push_state(crystal_keyboard)
-            break
 
     for game_object in game_world.all_objects():
         game_object.update()
