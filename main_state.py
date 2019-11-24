@@ -23,6 +23,7 @@ crystal = None
 inventory = None
 count = 0
 
+
 def enter():
     global character, grass, monster1, tile1, life, crystal, inventory, count
     count += 1
@@ -43,13 +44,16 @@ def enter():
     game_world.add_objects(tile1, 0)
 
     crystal = maptool.tri_obses
-    game_world.add_objects(crystal, 1)
+    game_world.add_objects(crystal, 2)
 
     monster1 = maptool.monsters
-    game_world.add_objects(monster1, 1)
+    game_world.add_objects(monster1, 3)
 
 
 def exit():
+    tile1.clear()
+    crystal.clear()
+    monster1.clear()
     game_world.clear()
 
 
