@@ -15,7 +15,7 @@ from inventory import Inventory
 name = "MainState"
 
 PIXEL_PER_METER = (10.0 / 0.2)
-FALL_SPEED_KMPH = 20.0
+FALL_SPEED_KMPH = 25.0
 FALL_SPEED_MPM = (FALL_SPEED_KMPH * 1000.0 / 60.0)
 FALL_SPEED_MPS = (FALL_SPEED_MPM / 60.0)
 FALL_SPEED_PPS = (FALL_SPEED_MPS * PIXEL_PER_METER)
@@ -65,6 +65,7 @@ def exit():
 
 
 def handle_events():
+    global crystal, character
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -83,6 +84,11 @@ def handle_events():
 
 
 def update():
+    global monster1, character
+
+    if life.count == 0:
+        game_framework.change_state(game_over_state)
+
     TileCollide()
 
     if character.y <= 100:
@@ -95,20 +101,18 @@ def update():
             for i in [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4]:
                 character.collide_monster(i)
                 draw()
-        if life.count == 0:
-            game_framework.change_state(game_over_state)
 
     for game_object in game_world.all_objects():
         game_object.update()
 
 
 def TileCollide():
+    global tile1, character, monster1
     for tile in tile1:
         if collide(tile, character):
             grass.delY = 0
             for tile_tmp in tile1:
                 tile_tmp.delY = 0
-            if tile.y - grass.y - 47.5 < character.y - 80:
                 character.stop()
             break
         else:
@@ -123,7 +127,7 @@ def TileCollide():
                         tile_tmp.delY = (FALL_SPEED_PPS * game_framework.frame_time)
             else:
                 character.dirY = -(FALL_SPEED_PPS * game_framework.frame_time)
-                grass.delY = -(FALL_SPEED_PPS * game_framework.frame_time)
+                grass.delY = 0
                 for tile_tmp in tile1:
                     tile_tmp.delY = (FALL_SPEED_PPS * game_framework.frame_time)
 
@@ -135,6 +139,26 @@ def TileCollide():
             elif character.dir == -1:
                 character.dir = 0
                 character.x = tile.x + 80
+
+    for monster in monster1:
+        for tile in tile1:
+            if collide(tile, monster):
+                monster.delY = 0
+                break
+            else:
+                monster.delY = -(FALL_SPEED_PPS * game_framework.frame_time)
+
+    for monster in monster1:
+        for tile in tile1:
+            if collide_tile_side(tile, monster):
+                if monster.monsterDelX > 0:
+                    monster.x = tile.x - 80
+                    monster.monsterDelX = -2
+
+                elif monster.monsterDelX < 0:
+                    monster.x = tile.x + 80
+                    monster.monsterDelX = 2
+
 
 
 def draw():

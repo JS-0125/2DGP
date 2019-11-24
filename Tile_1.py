@@ -33,4 +33,4 @@ class Tile:
       return self.x - 47.5, self.y - main_state.grass.y + 30 , self.x + 47.5, self.y - main_state.grass.y + 47.5
 
     def get_bb_tile_side(self):
-      return self.x - 47.5, self.y - main_state.grass.y , self.x + 47.5, self.y - main_state.grass.y
+      return self.x - 47.5, self.y - main_state.grass.y - 10 , self.x + 47.5, self.y - main_state.grass.y
