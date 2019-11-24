@@ -60,12 +60,13 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_a:
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_s:
             for crystal_tmp in crystal:
                 if collide(crystal_tmp, character):
                     game_world.remove_object(crystal_tmp)
                     crystal.remove(crystal_tmp)
                     game_framework.push_state(crystal_keyboard)
+                    break
         else:
             character.handle_event(event)
 
@@ -117,7 +118,7 @@ def TileCollide():
                     tile_tmp.delY = 8
 
     for tile in tile1:
-        if collide_tile_left(tile, character):
+        if collide_tile_side(tile, character):
             if character.dir == 1:
                 character.dir = 0
                 character.x = tile.x - 80
@@ -145,7 +146,7 @@ def collide(a, b):
 
     return True
 
-def collide_tile_left(a, b):
+def collide_tile_side(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb_tile_side()
     left_b, bottom_b, right_b, top_b = b.get_bb()
 
