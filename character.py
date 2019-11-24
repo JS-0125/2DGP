@@ -6,7 +6,7 @@ import game_world
 
 # Boy Run Speed
 # fill expressions correctly
-PIXEL_PER_METER = (10.0 / 0.3)
+PIXEL_PER_METER = (10.0 / 0.2)
 RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
@@ -83,10 +83,10 @@ class RunState:
         if(character.dirY == 0):
             if (character.frameY == 4):
                 character.frameX = (character.frameX + 1) % 4
-                character.x += character.dir * 10
+                character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time
             elif (character.frameY == 6):
                 character.frameX = (character.frameX - 1) % 4
-                character.x += character.dir * 10
+                character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time
             character.x = clamp(120, character.x, 450)
         else:
             character.y += character.dirY
