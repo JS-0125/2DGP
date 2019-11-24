@@ -16,7 +16,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 # fill expressions correctly
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-FRAMES_PER_ACTION = 8
+FRAMES_PER_ACTION = 4
 
 # Boy Event
 RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, A_DOWN, ESCAPE = range(6)
@@ -47,20 +47,15 @@ class IdleState:
     @staticmethod
     def exit(character, event):
         pass
+
     @staticmethod
     def do(character):
         character.y += character.dirY
-        if (character.frameY == 4):
-            character.frameX = (character.frameX + 1) % 4
-            character.x += character.dir * 10
-        elif (character.frameY == 6):
-            character.frameX = (character.frameX - 1) % 4
-            character.x += character.dir * 10
-        character.x = clamp(120, character.x, 450)
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 360, 3 * 360, 360, 360, character.x, character.y, 160, 160)
+        character.image.clip_draw(int(character.frameX) * 360, 3 * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+
 
 class RunState:
     @staticmethod
@@ -82,19 +77,19 @@ class RunState:
     def do(character):
         if(character.dirY == 0):
             if (character.frameY == 4):
-                character.frameX = (character.frameX + 1) % 4
+                character.frameX = (character.frameX + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
                 character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time
             elif (character.frameY == 6):
-                character.frameX = (character.frameX - 1) % 4
+                character.frameX = (character.frameX - FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
                 character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time
             character.x = clamp(120, character.x, 450)
         else:
             character.y += character.dirY
 
-
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 360, character.frameY * 360, 360, 360, character.x, character.y, 160, 160)
+        character.image.clip_draw(int(character.frameX) * 360, character.frameY * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+
 
 class AttackState:
     @staticmethod
@@ -133,8 +128,6 @@ class AttackState:
                             if tile.mode == 2:
                                  main_state.tile1.remove(tile)
                                  game_world.remove_object(tile)
-                            else:
-                                pass
             elif (character.frameY == 7):
                 character.frameX = (character.frameX - 1) % 19
                 if (character.frameX == 0):
@@ -145,14 +138,12 @@ class AttackState:
                              if tile.mode == 2:
                                  main_state.tile1.remove(tile)
                                  game_world.remove_object(tile)
-                             else:
-                                 pass
         else:
             character.y += character.dirY
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(character.frameX * 365, character.frameY * 360, 360, 360, character.x, character.y, 160, 160)
+        character.image.clip_draw(int(character.frameX) * 365, character.frameY * 360, 360, 360, int(character.x), int(character.y), 160, 160)
 
 next_state_table = {
     IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, A_DOWN: AttackState},
@@ -160,12 +151,13 @@ next_state_table = {
     AttackState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: IdleState, RIGHT_UP: IdleState, A_DOWN: AttackState}
 }
 
+
 class Chatacter:
     def __init__(self):
-        self.x, self.y = 120, 800
+        self.x, self.y = 120, 1000
         self.frameX, self.frameY = 2, 3
         self.image = load_image('resourse/character.png')
-        self.dir, self.dirY = 0, -8
+        self.dir, self.dirY = 0, 0
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)

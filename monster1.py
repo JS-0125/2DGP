@@ -17,8 +17,8 @@ class Enemy:
         self.x += self.monsterDelX
 
     def draw(self):
-        self.image.clip_draw(self.monsterFrameX * 360 , 0 , 360, 360, self.x, self.y - main_state.grass.y, 100, 100)
+        self.image.clip_draw(self.monsterFrameX * 360 , 0 , 360, 360, self.x, int(self.y - main_state.grass.y), 100, 100)
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 35 , self.y - main_state.grass.y - 50, self.x + 35, self.y - main_state.grass.y + 10
+        return self.x - 35 , self.y - main_state.grass.y - 50, self.x + 35, int(self.y - main_state.grass.y) + 10

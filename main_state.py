@@ -14,6 +14,13 @@ from inventory import Inventory
 
 name = "MainState"
 
+PIXEL_PER_METER = (10.0 / 0.2)
+FALL_SPEED_KMPH = 20.0
+FALL_SPEED_MPM = (FALL_SPEED_KMPH * 1000.0 / 60.0)
+FALL_SPEED_MPS = (FALL_SPEED_MPM / 60.0)
+FALL_SPEED_PPS = (FALL_SPEED_MPS * PIXEL_PER_METER)
+
+
 character = None
 grass = None
 monster1 = None
@@ -107,18 +114,18 @@ def TileCollide():
         else:
             if (character.y <= 400):
                 if grass.y <= -700:
-                    character.dirY = -8
+                    character.dirY = -(FALL_SPEED_PPS * game_framework.frame_time)
                     grass.delY = 0
                 else:
                     character.dirY = 0.01
-                    grass.delY = -8
+                    grass.delY = -(FALL_SPEED_PPS * game_framework.frame_time)
                     for tile_tmp in tile1:
-                        tile_tmp.delY = 8
+                        tile_tmp.delY = (FALL_SPEED_PPS * game_framework.frame_time)
             else:
-                character.dirY = -8
-                grass.delY = -8
+                character.dirY = -(FALL_SPEED_PPS * game_framework.frame_time)
+                grass.delY = -(FALL_SPEED_PPS * game_framework.frame_time)
                 for tile_tmp in tile1:
-                    tile_tmp.delY = 8
+                    tile_tmp.delY = (FALL_SPEED_PPS * game_framework.frame_time)
 
     for tile in tile1:
         if collide_tile_side(tile, character):
