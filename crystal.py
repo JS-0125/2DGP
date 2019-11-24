@@ -1,6 +1,7 @@
 from pico2d import *
 import main_state
 
+
 class Crystal:
     def __init__(self, x, y):
         self.frame = 0

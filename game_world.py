@@ -20,6 +20,7 @@ def remove_object(o):
             del o
             break
 
+
 def clear():
     global objects
     for o in all_objects():

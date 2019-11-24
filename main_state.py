@@ -95,7 +95,6 @@ def update():
         game_object.update()
 
 
-
 def TileCollide():
     for tile in tile1:
         if collide(tile, character):
@@ -150,6 +149,7 @@ def collide(a, b):
 
     return True
 
+
 def collide_tile_side(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb_tile_side()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -161,8 +161,10 @@ def collide_tile_side(a, b):
 
     return True
 
+
 def pause():
     pass
+
 
 def resume():
     pass

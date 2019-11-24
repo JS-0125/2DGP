@@ -6,16 +6,16 @@ import title_state
 name = "GameOverState"
 gameover = None
 
+
 def enter():
     global gameover
     gameover = load_image('resourse/game_over.png')
+
 
 def exit():
     global gameover
     del(gameover)
     game_world.clear()
-
-
 
 
 def handle_events():
@@ -28,6 +28,7 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(title_state)
+
 
 def draw():
     clear_canvas()
