@@ -174,7 +174,7 @@ class CoillidMonsterState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(int(character.frameX) * 365, 1 * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+        character.image.clip_draw(int(character.frameX) * 360, 1 * 360, 360, 360, int(character.x), int(character.y), 160, 160)
 
 
 next_state_table = {
@@ -220,11 +220,3 @@ class Chatacter:
 
     def stop(self):
         self.dirY = 0
-
-    def collide_monster(self, i):
-        pass
-
-    def collide_motion(self):
-        for i in [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]:
-            self.collide_monster(i)
-
