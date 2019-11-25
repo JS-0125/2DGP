@@ -8,6 +8,7 @@ import maptool
 import crystal_keyboard
 
 from character import Chatacter
+from character import CoillidMonsterState
 from grass import Grass
 from Life import Life
 from inventory import Inventory
@@ -84,7 +85,7 @@ def handle_events():
 
 
 def update():
-    global monster1, character
+    global monster1, character, tile1
 
     if life.count == 0:
         game_framework.change_state(game_over_state)
@@ -98,9 +99,10 @@ def update():
     for monster in monster1:
         if collide(monster, character):
             life.stop()
-            for i in [0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4]:
-                character.collide_monster(i)
-                draw()
+            character.frameX = 6
+            character.frameY = 1
+            character.cur_state = CoillidMonsterState
+            break
 
     for game_object in game_world.all_objects():
         game_object.update()
@@ -153,11 +155,11 @@ def TileCollide():
             if collide_tile_side(tile, monster):
                 if monster.monsterDelX > 0:
                     monster.x = tile.x - 80
-                    monster.monsterDelX = -2
+                    monster.monsterDelX = -1
 
                 elif monster.monsterDelX < 0:
                     monster.x = tile.x + 80
-                    monster.monsterDelX = 2
+                    monster.monsterDelX = 1
 
 
 

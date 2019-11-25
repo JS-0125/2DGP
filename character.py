@@ -18,6 +18,10 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 4
 
+
+TIME_PER_COLLIDE_ACTION = 0.5
+ACTION_PER_COLLIDE_TIME = 1.0 / TIME_PER_COLLIDE_ACTION
+FRAMES_PER_COLLIDE_ACTION = 11
 # Boy Event
 RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, A_DOWN, ESCAPE = range(6)
 
@@ -145,10 +149,39 @@ class AttackState:
     def draw(character):
         character.image.clip_draw(int(character.frameX) * 365, character.frameY * 360, 360, 360, int(character.x), int(character.y), 160, 160)
 
+
+class CoillidMonsterState:
+    @staticmethod
+    def enter(character, event):
+        #character.frameX = 6
+        #character.frameY = 1
+        pass
+
+    @staticmethod
+    def exit(character, event):
+        pass
+
+    @staticmethod
+    def do(character):
+        if character.frameX < 1:
+            character.cur_state = IdleState
+
+        character.frameX = (character.frameX + 0.2) % 11
+        print(character.frameX)
+
+        character.x -= 7
+        character.x = clamp(120, character.x, 450)
+
+    @staticmethod
+    def draw(character):
+        character.image.clip_draw(int(character.frameX) * 365, 1 * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+
+
 next_state_table = {
     IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, A_DOWN: AttackState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: RunState, RIGHT_DOWN: RunState, A_DOWN: AttackState},
-    AttackState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: IdleState, RIGHT_UP: IdleState, A_DOWN: AttackState}
+    AttackState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: IdleState, RIGHT_UP: IdleState, A_DOWN: AttackState},
+    CoillidMonsterState: {LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, LEFT_UP: CoillidMonsterState, RIGHT_UP: CoillidMonsterState, A_DOWN: CoillidMonsterState}
 }
 
 
@@ -189,7 +222,9 @@ class Chatacter:
         self.dirY = 0
 
     def collide_monster(self, i):
-        self.frameX = 5 + i
-        self.frameY = 1
-        self.x -= 7
-        self.x = clamp(120, self.x, 450)
+        pass
+
+    def collide_motion(self):
+        for i in [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]:
+            self.collide_monster(i)
+
