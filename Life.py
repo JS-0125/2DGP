@@ -5,14 +5,19 @@ class Life:
     def __init__(self):
         self.image = load_image('resourse/life.png')
         self.count = 3
+        self.timer = 0
 
     def update(self):
         for i in range(self.count):
             self.image.draw(210 + i * 70, 750, 50, 50)
+        self.timer -= 1
+
 
     def draw(self):
         for i in range(self.count):
             self.image.draw(210 + i * 70, 750, 50, 50)
 
     def stop(self):
-        self.count -= 1
+        if self. timer <= 0:
+            self.count -= 1
+        self.timer = 100
