@@ -98,10 +98,11 @@ def update():
 
     for monster in monster1:
         if collide(monster, character):
+            if life.timer <= 0:
+                character.frameX = 6
+                character.frameY = 1
+                character.cur_state = CoillidMonsterState
             life.stop()
-            character.frameX = 6
-            character.frameY = 1
-            character.cur_state = CoillidMonsterState
             break
 
     for game_object in game_world.all_objects():
