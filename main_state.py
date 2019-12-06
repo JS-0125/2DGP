@@ -35,12 +35,12 @@ count = 0
 def enter():
     global character, grass, monster1, tile1, life, crystal, inventory, count
     count += 1
+    if count == 1:
+        inventory = Inventory()
     character = Chatacter()
     grass = Grass()
 
     life = Life()
-    if count == 1:
-        inventory = Inventory()
 
     game_world.add_object(character, 1)
     game_world.add_object(grass, 0)

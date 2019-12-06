@@ -79,13 +79,14 @@ class RunState:
 
     @staticmethod
     def do(character):
+        print(RUN_SPEED_PPS)
         if(character.dirY == 0):
             if (character.frameY == 4):
                 character.frameX = (character.frameX + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
-                character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time
+                character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time * character.alpha_speed
             elif (character.frameY == 6):
                 character.frameX = (character.frameX - FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
-                character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time
+                character.x += character.dir * RUN_SPEED_PPS * game_framework.frame_time * character.alpha_speed
             character.x = clamp(120, character.x, 450)
         else:
             character.y += character.dirY
@@ -197,6 +198,7 @@ class Chatacter:
         self.cur_state.enter(self, None)
         self.attack = load_wav('resourse/attack.wav')
         self.attack.set_volume(64)
+        self.alpha_speed = main_state.inventory.speed
 
     def add_event(self, event):
         self.event_que.insert(0, event)

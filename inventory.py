@@ -1,6 +1,6 @@
 from pico2d import *
 from crystal import Crystal
-
+import character
 
 class Inventory:
     def __init__(self):
@@ -11,6 +11,7 @@ class Inventory:
         self.buy_sound.set_volume(64)
         self.sell_sound = load_wav('resourse/sell.wav')
         self.sell_sound.set_volume(64)
+        self.speed = 1
 
     def update(self):
         pass
@@ -32,6 +33,7 @@ class Inventory:
             self.buy_sound.play()
             if self.money >= 1000:
                 self.buy(1000)
+                self.speed += 0.1
         elif 200 < x < 360 and 590 < y < 615:
             self.buy_sound.play()
             if self.money >= 1000:
