@@ -17,6 +17,7 @@ keyboard_input_list = []
 keyboard_check_list = []
 keyboard_default_list = []
 
+count = 0
 
 def enter():
     global image_up, image_down, image_right, image_left, keyboard_input_list, keyboard_default_list, frameX
@@ -66,14 +67,15 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_LEFT:
             keyboard_check_list.append(3)
 
-
 def update():
-    global frameX
+    global frameX, count
     if keyboard_input_list == keyboard_check_list:
+        if count == 0:
+            main_state.crystal[0].get_crystal.play()
+        count += 1
         main_state.inventory.my_bag.append('crystal')
         frameX = 200
         draw()
-        delay(0.5)
         game_framework.pop_state()
 
     for i in range(len(keyboard_check_list)):
