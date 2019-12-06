@@ -6,6 +6,7 @@ import shop_state
 import game_over_state
 import maptool
 import crystal_keyboard
+import start_state
 
 from character import Chatacter
 from character import CoillidMonsterState
@@ -65,11 +66,13 @@ def exit():
     game_world.clear()
 
 
+
 def handle_events():
     global crystal, character
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
+            start_state.bgm.stop()
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()

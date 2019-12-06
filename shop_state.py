@@ -3,6 +3,7 @@ from pico2d import *
 import game_world
 import title_state
 import inventory_state
+import start_state
 
 name = "ShopState"
 shop = None
@@ -25,6 +26,7 @@ def handle_events():
             game_framework.quit()
         else:
             if(event.type, event.key) == (SDL_KEYDOWN,SDLK_ESCAPE) :
+                start_state.bgm.stop()
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(title_state)

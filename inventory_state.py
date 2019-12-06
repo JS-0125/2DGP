@@ -3,7 +3,7 @@ from pico2d import *
 import game_world
 import main_state
 import shop_state
-
+import start_state
 
 name = "IventoryState"
 font = None
@@ -26,6 +26,7 @@ def handle_events():
             game_framework.quit()
         else:
             if(event.type, event.key) == (SDL_KEYDOWN,SDLK_ESCAPE) :
+                start_state.bgm.stop()
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_a):
                 game_framework.pop_state()
