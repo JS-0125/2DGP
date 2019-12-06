@@ -6,14 +6,12 @@ import title_state
 name = "StartState"
 image = None
 logo_time = 0.0
-bgm = None
+
 
 def enter():
-    global image, bgm
+    global image
     image = load_image('resourse/kpu_credit.png')
-    bgm = load_music('resourse/dodadag_main_bgm.mp3')
-    bgm.set_volume(64)
-    bgm.repeat_play()
+
 
 def exit():
     global image

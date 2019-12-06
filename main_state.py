@@ -6,7 +6,7 @@ import shop_state
 import game_over_state
 import maptool
 import crystal_keyboard
-import start_state
+import title_state
 
 from character import Chatacter
 from character import CoillidMonsterState
@@ -72,7 +72,7 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
-            start_state.bgm.stop()
+            title_state.bgm.stop()
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
@@ -91,6 +91,8 @@ def update():
     global monster1, character, tile1
 
     if life.count == 0:
+        title_state.bgm.stop()
+
         game_framework.change_state(game_over_state)
 
     TileCollide()
@@ -142,10 +144,10 @@ def TileCollide():
         if collide_tile_side(tile, character):
             if character.dir == 1:
                 character.dir = 0
-                character.x = tile.x - 90
+                character.x = character.x - 20
             elif character.dir == -1:
                 character.dir = 0
-                character.x = tile.x + 90
+                character.x = character.x + 40
 
     for monster in monster1:
         for tile in tile1:

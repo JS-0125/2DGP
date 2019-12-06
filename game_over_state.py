@@ -5,16 +5,20 @@ import title_state
 
 name = "GameOverState"
 gameover = None
-
+bgm = None
 
 def enter():
-    global gameover
+    global gameover, bgm
     gameover = load_image('resourse/game_over.png')
-
+    bgm = load_music('resourse/fail.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
 
 def exit():
-    global gameover
+    global gameover, bgm
     del(gameover)
+    bgm.stop()
+    del(bgm)
     game_world.clear()
 
 

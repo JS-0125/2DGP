@@ -6,11 +6,15 @@ import maptool
 name = "TitleState"
 image_title = None
 image_text = None
+bgm = None
 
 def enter():
-    global image_title, image_text
+    global image_title, image_text, bgm
     image_title = load_image('resourse/title.png')
     image_text = load_image('resourse/press_space_text.png')
+    bgm = load_music('resourse/dodadag_main_bgm.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
 
 
 def exit():
@@ -23,6 +27,7 @@ def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
+            bgm.stop()
             game_framework.quit()
         else:
             if(event.type, event.key) == (SDL_KEYDOWN,SDLK_ESCAPE) :
