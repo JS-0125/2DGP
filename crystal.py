@@ -10,6 +10,8 @@ class Crystal:
         self.y = y
         self.get_crystal = load_wav('resourse/get_crystal.wav')
         self.get_crystal.set_volume(64)
+        self.fail_get_crystal = load_wav('resourse/fail_get_crystal.wav')
+        self.fail_get_crystal.set_volume(64)
 
     def update(self):
         self.frame = (self.frame + 1) % 6

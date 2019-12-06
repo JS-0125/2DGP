@@ -78,6 +78,7 @@ def update():
 
     for i in range(len(keyboard_check_list)):
         if keyboard_input_list[i] != keyboard_check_list[i]:
+            main_state.crystal[0].fail_get_crystal.play()
             main_state.life.count -= 1
             game_framework.pop_state()
 
