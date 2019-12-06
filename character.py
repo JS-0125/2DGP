@@ -216,7 +216,7 @@ class Chatacter:
 
     def draw(self):
         self.cur_state.draw(self)
-        draw_rectangle(*self.get_bb())
+
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

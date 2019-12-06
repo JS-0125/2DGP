@@ -12,6 +12,7 @@ class Inventory:
         self.sell_sound = load_wav('resourse/sell.wav')
         self.sell_sound.set_volume(64)
         self.speed = 1
+        self.mining_time = 2
 
     def update(self):
         pass
@@ -38,6 +39,7 @@ class Inventory:
             self.buy_sound.play()
             if self.money >= 1000:
                 self.buy(1000)
+                self.mining_time += 0.1
         elif 360 < x < 515 and 590 < y < 615:
             self.buy_sound.play()
             pass
