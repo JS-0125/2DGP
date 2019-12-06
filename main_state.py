@@ -7,6 +7,7 @@ import game_over_state
 import maptool
 import crystal_keyboard
 import title_state
+import gameclear_state
 
 from character import Chatacter
 from character import CoillidMonsterState
@@ -99,7 +100,7 @@ def update():
 
     if character.y <= 100:
         delay(1)
-        game_framework.change_state(shop_state)
+        game_framework.change_state(gameclear_state)
 
     for monster in monster1:
         if collide(monster, character):
