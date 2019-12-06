@@ -12,7 +12,7 @@ class Inventory:
         self.sell_sound = load_wav('resourse/sell.wav')
         self.sell_sound.set_volume(64)
         self.speed = 1
-        self.mining_time = 2
+        self.mining_time = 1.5
 
     def update(self):
         pass

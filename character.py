@@ -58,7 +58,7 @@ class IdleState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(int(character.frameX) * 360, 3 * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+        character.image.clip_draw(int(character.frameX) * 360, 3 * 360, 360, 360, int(character.x), int(character.y), character.size, character.size)
 
 
 class RunState:
@@ -93,7 +93,7 @@ class RunState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(int(character.frameX) * 360, character.frameY * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+        character.image.clip_draw(int(character.frameX) * 360, character.frameY * 360, 360, 360, int(character.x), int(character.y), character.size, character.size)
 
 
 class AttackState:
@@ -149,7 +149,7 @@ class AttackState:
 
     @staticmethod
     def draw(character):
-        character.image.clip_draw(int(character.frameX) * 365, character.frameY * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+        character.image.clip_draw(int(character.frameX) * 365, character.frameY * 360, 360, 360, int(character.x), int(character.y), character.size, character.size)
 
 
 class CoillidMonsterState:
@@ -171,12 +171,19 @@ class CoillidMonsterState:
         character.frameX = (character.frameX + 0.2) % 11
         print(character.frameX)
 
-        character.x -= 7
+        character.x -= 2
         character.x = clamp(120, character.x, 450)
-
+        for tile in main_state.tile1:
+            if main_state.collide_tile_side(tile, character):
+                if character.dir == 1:
+                    character.dir = 0
+                    character.x = tile.x - 90
+                elif character.dir == -1:
+                    character.dir = 0
+                    character.x = tile.x + 90
     @staticmethod
     def draw(character):
-        character.image.clip_draw(int(character.frameX) * 360, 1 * 360, 360, 360, int(character.x), int(character.y), 160, 160)
+        character.image.clip_draw(int(character.frameX) * 360, 1 * 360, 360, 360, int(character.x), int(character.y), character.size, character.size)
 
 
 next_state_table = {
@@ -198,13 +205,16 @@ class Chatacter:
         self.cur_state.enter(self, None)
         self.attack = load_wav('resourse/attack.wav')
         self.attack.set_volume(64)
+        self.get_hit = load_wav('resourse/get_hit.wav')
+        self.get_hit.set_volume(64)
         self.alpha_speed = main_state.inventory.speed
+        self.size = 160
 
     def add_event(self, event):
         self.event_que.insert(0, event)
 
     def get_bb(self):
-        return self.x - 20, self.y - 80, self.x + 15, self.y - 20
+        return self.x - self.size // 10, self.y - 80, self.x + 15, self.y - 20
 
     def update(self):
         self.cur_state.do(self)
@@ -216,7 +226,6 @@ class Chatacter:
 
     def draw(self):
         self.cur_state.draw(self)
-
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

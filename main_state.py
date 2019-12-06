@@ -102,6 +102,7 @@ def update():
     for monster in monster1:
         if collide(monster, character):
             if life.timer <= 0:
+                character.get_hit.play()
                 character.frameX = 6
                 character.frameY = 1
                 character.cur_state = CoillidMonsterState
@@ -141,10 +142,10 @@ def TileCollide():
         if collide_tile_side(tile, character):
             if character.dir == 1:
                 character.dir = 0
-                character.x = tile.x - 80
+                character.x = tile.x - 90
             elif character.dir == -1:
                 character.dir = 0
-                character.x = tile.x + 80
+                character.x = tile.x + 90
 
     for monster in monster1:
         for tile in tile1:
