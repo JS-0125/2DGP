@@ -7,6 +7,10 @@ class Inventory:
         self.image = load_image('resourse/inventory.png')
         self.my_bag = []
         self.money = 0
+        self.buy_sound = load_wav('resourse/buy.wav')
+        self.buy_sound.set_volume(64)
+        self.sell_sound = load_wav('resourse/sell.wav')
+        self.sell_sound.set_volume(64)
 
     def update(self):
         pass
@@ -25,36 +29,45 @@ class Inventory:
     def click(self, x, y):
         # buy
         if 40 < x < 200 and 590 < y < 615:
+            self.buy_sound.play()
             if self.money >= 1000:
                 self.buy(1000)
         elif 200 < x < 360 and 590 < y < 615:
+            self.buy_sound.play()
             if self.money >= 1000:
                 self.buy(1000)
         elif 360 < x < 515 and 590 < y < 615:
+            self.buy_sound.play()
             pass
 
         # sell
         if 40 < x < 200 and 235 < y < 260:
+            self.sell_sound.play()
             if len(self.my_bag) >= 1:
                 self.sell(0)
                 self.my_bag.remove(self.my_bag[0])
         elif 200 < x < 360 and 235 < y < 260:
+            self.sell_sound.play()
             if len(self.my_bag) >= 2:
                 self.sell(1)
                 self.my_bag.remove(self.my_bag[1])
         elif 360 < x < 515 and 235 < y < 260:
+            self.sell_sound.play()
             if len(self.my_bag) >= 3:
                 self.sell(2)
                 self.my_bag.remove(self.my_bag[2])
         elif 40 < x < 200 and 35 < y < 60:
+            self.sell_sound.play()
             if len(self.my_bag) >= 4:
                 self.sell(3)
                 self.my_bag.remove(self.my_bag[3])
         elif 200 < x < 360 and 35 < y < 60:
+            self.sell_sound.play()
             if len(self.my_bag) >= 5:
                 self.sell(4)
                 self.my_bag.remove(self.my_bag[4])
         elif 360 < x < 515 and 35 < y < 60:
+            self.sell_sound.play()
             if len(self.my_bag) >= 6:
                 self.sell(5)
                 self.my_bag.remove(self.my_bag[5])
