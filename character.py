@@ -107,6 +107,7 @@ class AttackState:
             character.frameX = 0
             character.frameY = 6
         elif (event == A_DOWN):
+            character.attack.play()
             if (character.dir == -1):
                 character.frameY = 7
                 character.frameX = 19
@@ -130,8 +131,8 @@ class AttackState:
                     for tile in main_state.tile1:
                         if main_state.collide(tile, character):
                             if tile.mode == 2:
-                                 main_state.tile1.remove(tile)
-                                 game_world.remove_object(tile)
+                                main_state.tile1.remove(tile)
+                                game_world.remove_object(tile)
             elif (character.frameY == 7):
                 character.frameX = (character.frameX - 1) % 19
                 if (character.frameX == 0):
@@ -194,6 +195,8 @@ class Chatacter:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.attack = load_wav('resourse/attack.wav')
+        self.attack.set_volume(64)
 
     def add_event(self, event):
         self.event_que.insert(0, event)
