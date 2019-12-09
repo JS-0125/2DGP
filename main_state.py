@@ -77,7 +77,7 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_s:
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_s and character.dirY == 0:
             for crystal_tmp in crystal:
                 if collide(crystal_tmp, character):
                     game_world.remove_object(crystal_tmp)

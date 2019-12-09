@@ -123,7 +123,7 @@ class AttackState:
 
     @staticmethod
     def do(character):
-        if(character.dirY==0):
+        if(character.dirY == 0):
             if (character.frameY == 0):
                 character.frameX = (character.frameX + 1) % 19
                 if (character.frameX == 0):
@@ -167,11 +167,12 @@ class CoillidMonsterState:
     def do(character):
         if character.frameX < 1:
             character.cur_state = IdleState
-
+ \
         character.frameX = (character.frameX + 0.2) % 11
         print(character.frameX)
 
-        character.x -= 2
+        character.x -= 3
+        character.y += 1
         character.x = clamp(120, character.x, 450)
         for tile in main_state.tile1:
             if main_state.collide_tile_side(tile, character):
@@ -214,7 +215,7 @@ class Chatacter:
         self.event_que.insert(0, event)
 
     def get_bb(self):
-        return self.x - self.size // 10, self.y - 80, self.x + 15, self.y - 20
+        return self.x - 15, self.y - self.size / 2, self.x + 15, self.y - 20
 
     def update(self):
         self.cur_state.do(self)

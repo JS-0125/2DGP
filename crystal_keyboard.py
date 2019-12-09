@@ -88,6 +88,7 @@ def update():
         main_state.inventory.my_bag.append('crystal')
         frameX = 200
         draw()
+        delay(0.1)
         game_framework.pop_state()
 
     for i in range(len(keyboard_check_list)):

@@ -24,5 +24,5 @@ class Life:
         print(self.timer)
         if self. timer <= 0:
             self.count -= 1
-            self.timer = 120
+            self.timer = 150
             main_state.character.size = 190

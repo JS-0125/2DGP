@@ -17,18 +17,24 @@ name = "GameClearState"
 game_clear = None
 congratulations = None
 frame = None
+clap = None
 
 def enter():
-    global game_clear, congratulations, frame
+    global game_clear, congratulations, frame, clap
     frame = 0
     game_clear = load_image('resourse/game_clear.png')
     congratulations = load_image('resourse/congratulations.png')
+    clap = load_wav('resourse/clap.wav')
+    clap.set_volume(64)
+    clap.play()
+
 
 def exit():
-    global game_clear, congratulations, frame
+    global game_clear, congratulations, frame, clap
     del(congratulations)
     del(game_clear)
     del(frame)
+    del(clap)
     game_world.clear()
 
 def handle_events():
