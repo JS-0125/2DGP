@@ -93,7 +93,6 @@ def update():
 
     if life.count == 0:
         title_state.bgm.stop()
-
         game_framework.change_state(game_over_state)
 
     TileCollide()
@@ -127,7 +126,7 @@ def TileCollide():
             break
         else:
             if (character.y <= 400):
-                if grass.y <= -700:
+                if grass.y <= 1360:
                     character.dirY = -(FALL_SPEED_PPS * game_framework.frame_time)
                     grass.delY = 0
                 else:

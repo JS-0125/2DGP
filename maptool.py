@@ -18,7 +18,7 @@ image = None
 speed, inspeed = 8, 0
 stop = True
 tiles, tri_obses, monsters = [], [], []
-real_y = 1400
+real_y = 3000
 delete_idx = 0
 
 
@@ -28,12 +28,14 @@ def enter():
     kind = 1
     global tile2_x, tile2_y, tri_obs_x, tri_obs_y,monsters_x, monsters_y, monsters
     tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y,monsters_x, monsters_y, monsters = [], [], [], [], [], [], [], []
+    ReadPos()
+
     global image
     image = load_image('resourse/tile_1.png')
 
     global x, y, mx, my, size_x ,size_y, real_x, stop
-    size_x = 100
-    size_y = 100
+    size_x = 95
+    size_y = 95
     real_x = 0
     stop = True
 
@@ -45,8 +47,6 @@ def enter():
     global delete_idx
     delete_idx = "tile"
 
-    ReadPos()
-    pass
 
 
 def exit():
@@ -167,8 +167,8 @@ def Create():
     global delete_idx
     if kind == 1:
         #basic tile
-        tiles.append(Tile(x,y, 1))
-        tile_x.append(x+real_x)
+        tiles.append(Tile(x, y, 1))
+        tile_x.append(x + real_x)
         tile_y.append(y + real_y)
         tile_mode.append(1)
         delete_idx = "tile"

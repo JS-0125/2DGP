@@ -36,6 +36,7 @@ class Enemy:
 
     def draw(self):
         self.image.clip_draw(int(self.monsterFrameX) * 360 , 0 , 360, 360, int(self.x), int(self.y - main_state.grass.y), 100, 100)
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return int(self.x) - 30 , int(self.y - main_state.grass.y) - 50, int(self.x) + 30, int(self.y - main_state.grass.y) + 10

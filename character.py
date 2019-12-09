@@ -196,7 +196,7 @@ next_state_table = {
 
 class Chatacter:
     def __init__(self):
-        self.x, self.y = 120, 1000
+        self.x, self.y = 120, 1200
         self.frameX, self.frameY = 2, 3
         self.image = load_image('resourse/character.png')
         self.dir, self.dirY = 0, 0

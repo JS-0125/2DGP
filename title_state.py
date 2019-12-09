@@ -44,6 +44,7 @@ def draw():
     image_text.draw(280,250)
     update_canvas()
 
+
 def update():
     pass
 

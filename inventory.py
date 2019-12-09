@@ -8,9 +8,9 @@ class Inventory:
         self.my_bag = []
         self.money = 0
         self.buy_sound = load_wav('resourse/buy.wav')
-        self.buy_sound.set_volume(64)
+        self.buy_sound.set_volume(70)
         self.sell_sound = load_wav('resourse/sell.wav')
-        self.sell_sound.set_volume(64)
+        self.sell_sound.set_volume(70)
         self.speed = 1
         self.mining_time = 1.5
 
