@@ -7,15 +7,17 @@ import title_state
 
 name = "ShopState"
 shop = None
-
+text = None
 
 def enter():
-    global shop
+    global shop, text
+    text = load_image('resourse/press_a_to_shop.png')
     shop = load_image('resourse/shop.png')
 
 
 def exit():
-    global shop
+    global shop, text
+    del(text)
     del(shop)
 
 
@@ -37,7 +39,7 @@ def handle_events():
 def draw():
     clear_canvas()
     shop.draw(280, 550)
-
+    text.draw(280, 100)
     update_canvas()
 
 

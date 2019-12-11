@@ -99,21 +99,14 @@ class RunState:
 class AttackState:
     @staticmethod
     def enter(character, event):
-        if (event == RIGHT_DOWN):
-            character.dir += 1
-            character.frameX = 0
-            character.frameY = 4
-        elif (event == LEFT_DOWN):
-            character.dir -= 1
-            character.frameX = 0
-            character.frameY = 6
-        elif (event == A_DOWN):
+        if (event == A_DOWN):
             character.attack.play()
             if (character.dir == -1):
                 character.frameY = 7
                 character.frameX = 19
             else :
                 character.frameY = 0
+                character.frameX = 0
         elif event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
 
@@ -131,7 +124,7 @@ class AttackState:
                     character.frameX = 2
                     for tile in main_state.tile1:
                         if main_state.collide(tile, character):
-                            if tile.mode == 2:
+                            if tile.mode == 2 and (tile.x - character.x)**2 < 2256.25:
                                 main_state.tile1.remove(tile)
                                 game_world.remove_object(tile)
             elif (character.frameY == 7):
@@ -141,7 +134,7 @@ class AttackState:
                     character.frameX = 2
                     for tile in main_state.tile1:
                         if main_state.collide(tile, character):
-                             if tile.mode == 2:
+                             if tile.mode == 2 and (tile.x - character.x)**2 < 2256.25:
                                  main_state.tile1.remove(tile)
                                  game_world.remove_object(tile)
         else:
@@ -167,21 +160,13 @@ class CoillidMonsterState:
     def do(character):
         if character.frameX < 1:
             character.cur_state = IdleState
- \
+
         character.frameX = (character.frameX + 0.2) % 11
         print(character.frameX)
 
-        character.x -= 3
         character.y += 1
         character.x = clamp(120, character.x, 450)
-        for tile in main_state.tile1:
-            if main_state.collide_tile_side(tile, character):
-                if character.dir == 1:
-                    character.dir = 0
-                    character.x = tile.x - 90
-                elif character.dir == -1:
-                    character.dir = 0
-                    character.x = tile.x + 90
+
     @staticmethod
     def draw(character):
         character.image.clip_draw(int(character.frameX) * 360, 1 * 360, 360, 360, int(character.x), int(character.y), character.size, character.size)
@@ -191,7 +176,7 @@ next_state_table = {
     IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, A_DOWN: AttackState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: RunState, RIGHT_DOWN: RunState, A_DOWN: AttackState},
     AttackState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: IdleState, RIGHT_UP: IdleState, A_DOWN: AttackState},
-    CoillidMonsterState: {LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, LEFT_UP: CoillidMonsterState, RIGHT_UP: CoillidMonsterState, A_DOWN: CoillidMonsterState}
+    CoillidMonsterState: {LEFT_DOWN: CoillidMonsterState, RIGHT_DOWN: CoillidMonsterState, LEFT_UP: CoillidMonsterState, RIGHT_UP: CoillidMonsterState, A_DOWN: CoillidMonsterState}
 }
 
 

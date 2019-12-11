@@ -18,7 +18,7 @@ FRAMES_PER_ACTION = 6
 
 class Enemy:
     def __init__(self, x,  y):
-        self. monsterDelX, self.x = 2, x
+        self. monsterDelX, self.x = 1, x
         self.monsterFrameX = 0
         self.y = y
         self.delY = 0
@@ -28,15 +28,16 @@ class Enemy:
         self.x += self.monsterDelX * RUN_SPEED_PPS * game_framework.frame_time
         self.y += self.delY
 
-        if (self.x >= 450):
+        if (self.x >= 440):
             self.monsterDelX = -1
-        elif (self.x <= 120):
+        elif (self.x <= 130):
             self.monsterDelX = 1
+        self.x = clamp(120, self.x, 450)
         self.monsterFrameX = (self.monsterFrameX + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
 
     def draw(self):
         self.image.clip_draw(int(self.monsterFrameX) * 360 , 0 , 360, 360, int(self.x), int(self.y - main_state.grass.y), 100, 100)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return int(self.x) - 30 , int(self.y - main_state.grass.y) - 50, int(self.x) + 30, int(self.y - main_state.grass.y) + 10

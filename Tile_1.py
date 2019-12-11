@@ -17,8 +17,8 @@ class Tile:
 
     def draw(self):
         self.image.draw(self.x, self.y - main_state.grass.y, 95, 95)
-        draw_rectangle(*self.get_bb())
-        draw_rectangle(*self.get_bb_tile_side())
+        #draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb_tile_side())
 
     def draw1(self, Real):
         self.image.draw(self.x, self.y - Real, 95, 95)
@@ -30,7 +30,7 @@ class Tile:
         self.y += delY
 
     def get_bb(self):
-      return self.x - 47.5, self.y - main_state.grass.y + 30 , self.x + 47.5, self.y - main_state.grass.y + 47.5
+      return self.x - 47.5, self.y - main_state.grass.y + 40, self.x + 47.5, self.y - main_state.grass.y + 47.5
 
     def get_bb_tile_side(self):
-      return self.x - 47.5, self.y - main_state.grass.y - 10 , self.x + 47.5, self.y - main_state.grass.y + 10
+      return self.x - 47.5, self.y - main_state.grass.y - 10 , self.x + 47.5, self.y - main_state.grass.y + 30

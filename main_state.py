@@ -44,7 +44,7 @@ def enter():
 
     life = Life()
 
-    game_world.add_object(character, 1)
+    game_world.add_object(character, 4)
     game_world.add_object(grass, 0)
     game_world.add_object(life, 1)
 
@@ -90,12 +90,12 @@ def handle_events():
 
 def update():
     global monster1, character, tile1
+    TileCollide()
 
     if life.count == 0:
         title_state.bgm.stop()
         game_framework.change_state(game_over_state)
 
-    TileCollide()
 
     if character.y <= 100:
         delay(1)
@@ -163,11 +163,10 @@ def TileCollide():
                 if monster.monsterDelX > 0:
                     monster.x = tile.x - 80
                     monster.monsterDelX = -1
-
                 elif monster.monsterDelX < 0:
                     monster.x = tile.x + 80
                     monster.monsterDelX = 1
-
+                monster.x = clamp(120, monster.x, 450)
 
 
 def draw():
